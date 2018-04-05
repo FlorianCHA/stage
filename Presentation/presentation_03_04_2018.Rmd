@@ -4,7 +4,7 @@ author: "<p align='center'>Florian CHARRIAT</p>"
 date: "<p align='center'>03 Avril 2018</p>"
 output:
   slidy_presentation:
-    footer : "<a href='https://floriancha.github.io/Stage/'>Retour au site</a> &nbsp; <a href='presentation_03_04_2018.pdf'
+    footer : "<a href='https://floriancha.github.io/stage/'>Retour au site</a> &nbsp; <a href='presentation_03_04_2018.pdf'
    download='presentation_03_04_2018.pdf'>Télécharger le diapo</a>"
     highlight: zenburn
     incremental: yes
@@ -63,7 +63,7 @@ knitr::opts_chunk$set(
 
 ########### Traitement des données #################
 dataQuality <-c()
-WD <- '/home/charriat/Documents/Stage/StatQuality'
+WD <- '/home/charriat/Documents/stage/StatQuality'
 file.quality <- file.path(WD,'allStatQuality')
 dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
 idS <- c()

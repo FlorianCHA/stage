@@ -62,7 +62,7 @@ library('DT')
 ```{r data Terrasses, echo=FALSE}
 ############################ Assemblage terrasses ###########################################
 dataQuality <-c()
-WD <- '/home/charriat/Documents/Stage/StatQuality'
+WD <- '/home/charriat/Documents/stage/StatQuality'
 file.quality <- file.path(WD,'QualityR_terrasses')
 dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
 idS <- c()
@@ -187,7 +187,7 @@ rownames(dataAdel) <- dataSelect
 ```
 
 ```{r data litterature,echo = FALSE}
-wd <- '/home/charriat/Documents/Stage'
+wd <- '/home/charriat/Documents/stage'
 file.literrature <- file.path(wd,'data-literrature.txt')
 dataL <- read.table(file=file.literrature, sep="\t", header=TRUE)
 rownames(dataL) <- dataL$id

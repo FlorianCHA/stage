@@ -52,7 +52,7 @@ Ce tableau présente les statistiques données par repeatMasker de chaque souche
 
 ```{r Importation des données, echo = FALSE}
 dataQuality <-c()
-WD <- '/home/charriat/Documents/Stage/StatQuality'
+WD <- '/home/charriat/Documents/stage/StatQuality'
 file.quality <- file.path(WD,'stat_repeatMasker')
 data <- read.table(file=file.quality, sep="\t", header=TRUE)
 rownames(data) <- data[,1]

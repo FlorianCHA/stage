@@ -52,7 +52,7 @@ library('DT')
 <p style="text-align:justify";>Les données sont importées dans R afin de pouvoir ensuite les traiter.</p>
 ```{r Importation des données}
 dataQuality <-c()
-WD <- '/home/charriat/Documents/Stage/StatQuality'
+WD <- '/home/charriat/Documents/stage/StatQuality'
 file.quality <- file.path(WD,'QualityR_Adel')
 dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
 idS <- c()
