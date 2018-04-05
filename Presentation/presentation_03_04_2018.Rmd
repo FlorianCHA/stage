@@ -1,0 +1,259 @@
+---
+title: "<h1 align='center'><font size='+7'>Présentation de l'avancement du projet</font></h1>" 
+author: "<p align='center'>Florian CHARRIAT</p>"
+date: "<p align='center'>03 Avril 2018</p>"
+output:
+  slidy_presentation:
+    footer : "<a href='https://floriancha.github.io/Stage/'>Retour au site</a> &nbsp; <a href='presentation_03_04_2018.pdf'
+   download='presentation_03_04_2018.pdf'>Télécharger le diapo</a>"
+    highlight: zenburn
+    incremental: yes
+    theme: cerulean
+    fig_caption: true
+    font_adjustment: -1
+  beamer_presentation:
+    highlight: zenburn
+    incremental: yes
+---
+
+
+```{r include=FALSE, echo=FALSE, eval=TRUE}
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 13, fig.height = 8, 
+  fig.path='figures',
+  fig.align = "center", 
+  size = "tiny", 
+  echo = FALSE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+#Assemblage (ABYSS) {.bigger}
+
+&nbsp;
+
+> - 85 souches assemblées 
+
+>> - 66 souches des terrasses
+>> - 19 souches séquencées par Adel
+
+> - Différentes tailles de k-mère utilisées pour chaque souche 
+
+>> - Visualisation des statistiques de qualité pour choisir le meilleur assemblage pour chaque souche
+
+>>> - Sélection par N50
+>>> - Vérification de la sélection par visualisation des autres statistiques
+
+> - Visualisation de la qualité des 85 assemblages sélectionnés
+
+>> - Visualiser la qualité moyenne des assemblages
+>> - Filtrer les assemblages de mauvaise qualité
+
+ 
+#Sélection du meilleur assemblage
+
+&nbsp;
+
+```{r, echo=FALSE, out.height="80%", out.width="100%"}
+
+########### Traitement des données #################
+dataQuality <-c()
+WD <- '/home/charriat/Documents/Stage/StatQuality'
+file.quality <- file.path(WD,'allStatQuality')
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+dataQ[,11] <- idSouche
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+kmère <- c(20,30,40,50,60,70,80,90)
+Id <- c()
+j <- 1
+N50 <- data.frame(matrix(NA,ncol=length(kmère),nrow = (nrow(dataQuality)/8)))
+for (i in 1:(nrow(dataQuality)/8))
+{
+  Ids <- rownames(dataQuality[i*8,])
+  Id <- c(Id,substr(Ids,0,6))
+  N50[i,] <- dataQuality[j:(i*8),6]
+  j <- i*8+1
+}
+rownames(N50) <- Id
+colnames(N50) <- kmère
+
+################ Selection ############################
+selection <- data.frame(matrix(NA,ncol= ncol(dataQuality) ,nrow = (nrow(dataQuality)/8)))
+id.select <- c()
+for (i in 1:nrow(N50))
+{
+  bestKmer <- colnames(N50[i,])[which(N50[i,] == max(N50[i,]), arr.ind = TRUE)[2]]
+  newId <- paste(rownames(N50[i,]),toString(bestKmer),sep = '_')
+  id.select <- c(id.select,newId)
+  selection[i,] <-  dataQuality[rownames(dataQuality) == newId,]
+
+}
+colnames(selection) <- colnames(dataQuality)
+rownames(selection) <- id.select
+x.kmère <- c()
+for (i in 1:(nrow(dataQ)/8))
+{
+  x.kmère <- c(x.kmère,rep(i,8))
+}
+select.kmère <- c()
+for (i in 1:nrow(dataQuality))
+{
+  if (rownames(dataQuality[i,]) %in% id.select)
+  {
+    select.kmère <- c(select.kmère, TRUE)
+  }
+  else 
+  {
+    select.kmère <- c(select.kmère, FALSE)
+  }
+}
+
+######## Affichage plot #########
+
+par(mfrow=c(2,2))
+plot(x = x.kmère, y = dataQuality$L50, ylab ='L50', xlab = 'souche', xaxt="n" , main ='Graphique n°1 : Assemblage de chaque souche \nen fonction du L50', cex = 0.1)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+points(x = x.kmère[select.kmère], y = dataQuality$L50[select.kmère], cex = 0.3, col = 'red')
+plot(x = x.kmère, y = dataQuality$E.size,ylab ='E.size',xlab = 'souche',xaxt="n", main ="Graphique n°2 : Assemblage de chaque souche \nen fonction de l'E-size", cex = 0.3)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+points(x = x.kmère[select.kmère], y = dataQuality$E.size[select.kmère], cex = 0.4, col = 'red')
+plot(x = x.kmère, y = dataQuality$max,ylab ='max',xlab = 'souche', xaxt="n" , main ='Graphique n°3 : Assemblage de chaque souche \nen fonction de la longueur max des contigs', cex = 0.3)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+points(x = x.kmère[select.kmère], y = dataQuality$max[select.kmère], cex = 0.4, col = 'red')
+plot(x = x.kmère, y = dataQuality$n.500,ylab ='n.500',xlab = 'souche', xaxt="n" , main ='Graphique n°4 : Assemblage de chaque souche \nen fonction du nombre de contigs supérieur à 500', cex = 0.3)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+points(x = x.kmère[select.kmère], y = dataQuality$n.500[select.kmère], cex = 0.4, col = 'red')
+
+```
+
+&nbsp;
+
+<font size="-1">Les données et les graphiques sont aussi présents dans les rapports sur [l'assemblage des souches des terrasses](../rapport30.html) et [l'assemblage des souches séquencé par Adel](../assembleSoucheAdel.html)</font> 
+
+#Visualision de la qualité des assemblages sélectionnés
+
+&nbsp;
+
+```{r ,echo=FALSE, out.height="80%", out.width="100%"}
+
+color <- c()
+id.plot <- rownames(selection)
+x <- 1:nrow(selection)
+N50max <- 25000 # Selection des assemblage avec un N50 supérieur à 25 000
+select <- selection$N50 > 25000
+unselect <- selection$N50 < 25000
+color[select] <- 'red'
+color[unselect] <- 'black'
+
+par(mfrow=c(2,2))
+plot(x = x, y = selection$N50, xlab = 'souche', ylab ='N50',xaxt="n" , main ='Graphique n°5 : Assemblage de chaque souche en fonction du N50', col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+abline(h=N50max,col="red") 
+plot(x = x, y = selection$L50, xlab = 'souche', ylab ='L50',xaxt="n" ,main ='Grapĥique n°6 : Assemblage de chaque souche en fonction du L50', col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+plot(x = x, y = selection$E.size, xlab = 'souche', ylab ='E-size',xaxt="n" ,main ="Graphique n°7 : Assemblage de chaque souche en fonction de l'E-size", col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+#plot(x = x, y = selection$max, xlab = 'souche', ylab ='max',xaxt="n" , main ='Graphique n°9 : Assemblage de chaque souche en fonction de la longueur max des contigs', col = color, cex = 0.4)
+#axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+plot(x = x, y = selection$n.500, xlab = 'souche', ylab ='max',xaxt="n" , main ='Graphique n°8 : Assemblage de chaque souche en fonction en fonction \n du nombre de contigs supérieur à 500', col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+```
+
+&nbsp;
+
+<font size="-1">Les données et les graphiques sont aussi présents dans les rapports sur [l'assemblage des souches des terrasses](../rapport30.html) et [l'assemblage des souches séquencé par Adel](../assembleSoucheAdel.html)</font> 
+
+#repeatMasker {.bigger}
+
+&nbsp;
+
+> - Masquer les éléments répétés des 67 souches sélectionnées.
+> - Pour chaque souche :
+
+>> - 4.67 à 8.18 % des séquences ont été masquées par repeatMasker 
+>> - Dans les assemblages certains scaffolds ne sont constitués que d'éléments répétés 
+
+>>> - Mise en place d'un script qui élimine ces scaffolds
+
+&nbsp;
+
+
+<font size="-1">Toutes les données sont présentes dans le rapport [Masquer les éléments répétés](../repeatMasquer.html)</font> 
+
+#Annotation (BRAKER) {.bigger}
+
+&nbsp;
+
+> - 154 souches à annoter :
+
+>> - 67 souches assemblées précédemment
+>> - 87 souches de la littérature
+>> - Plus des souches en cours de séquençage
+
+> - Pour annoter :
+
+>  <img src="yes.jpeg" style="width: 30px;"/> Génome à annoter
+
+>>> - Choix de l'assemblage entre ceux effectués avec ABYSS et ceux réalisés par Sebastien
+
+>  <img src="no.png" style="width: 23px;"/> Données RNAseq alignées avec le génome à annoter
+
+>>> - topHat : Aligner toutes les données RNAseq sélectionnées
+>>> - Samtools : Merger les alignements de chaque donnée RNAseq
+
+
+#Mapping des RNAseq
+
+&nbsp;
+
+> - 32 données RNAseq sélectionnées
+
+>> - 2 données provenant du projet GEMO
+>> - 15 données de GY11
+>> - 3 données de Magnaburkho
+>> - 12 données InPlanta
+
+> - Traitement des données Inplanta :
+
+>> - Mapping sur le génome du riz pour récupérer seulement les reads de *Magnaporthe oryzae*
+
+> - Mise en forme des assemblages pour l'alignement :
+
+>> - Elimination des scaffolds de moins de 500 pb.
+>> - Les identifiants ont été modifié :
+
+>>> - Les scaffolds seront numérotés en fonction de leur longueur.
+>>> - En description de chaque scaffold sa longueur sera donnée.
+
+<font size="-1">Toutes les détails sont présent dans les rapports [Choix des meilleurs Assemblages](../comparaison_assemblage.html) et [Annotation](../Annotation.html)</font> 
+
+#Fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+---
+title: "Choix des meilleurs Assemblages"
+author: "CHARRIAT Florian"
+date: "29 mars 2018"
+output:
+  html_document:
+    code_folding: hide
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+---
+
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+# knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
+
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = TRUE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+```{r Package , echo=FALSE}
+if(!require("knitr"))
+  {
+  install.packages('knitr')
+}
+if(!require("DT"))
+  {
+  install.packages('DT')
+  }
+library('knitr')
+library('DT')
+```
+
+#Comparaison des assemblages
+
+<p style="text-align:justify";>Dans cette partie les statistiques des assemblages réalisés lors de ce stage avec l'outil ABYSS sont comparées avec les statistiques des assemblages effectués par Sebastien. Le tableau ci-dessous montre les statistiques entre les deux assemblages.</p>
+
+```{r Comparaison}
+dataABYSS <- read.table('data/dataABYSS.txt',header = TRUE)
+dataSEB <- read.table('data/dataSeb.txt',header = TRUE)
+colnames(dataABYSS) <- c('Id','Num','N50','L50')
+rownames(dataABYSS) <- dataABYSS$Id
+rownames(dataSEB) <- dataSEB$Id
+
+dataABYSS = dataABYSS[order(dataABYSS[,1],decreasing=F), ]
+dataSEB = dataSEB[order(dataSEB[,1],decreasing=F), ]
+data <- data.frame(dataABYSS,dataSEB[,2:4])
+
+##### Tableau #########
+colnames = htmltools::withTags(table(
+  class = 'display',
+  thead(
+    tr(
+      th(rowspan = 2, 'Souche'),
+      th(colspan = 3, 'ABYSS'),
+      th(colspan = 3, 'SEB')
+    ),
+    tr(
+      lapply(rep(c('Num', 'N50','L50'), 2), th)
+    )
+  )
+))
+
+
+datatable(data,  container = colnames , rownames = FALSE,extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+```
+
+&nbsp;
+
+#Choix de l'assemblage
+
+<p style="text-align:justify";>Le choix de l'assemblage a été réalisé en se basant sur le N50. L'assemblage avec le N50 les plus élevés est sélectionné. Le tableau ci-dessous donne les assemblages sélectionnés.</p>
+
+```{r Selection}
+choix <- c()
+
+for (i in 1:nrow(dataABYSS))
+{
+  if (dataABYSS$N50[i] > dataSEB$N50[i])
+  {
+    choix <- c(choix,'ABYSS')
+    
+  }
+  else 
+  {
+    choix <- c(choix,'SEB')
+  }
+}
+
+data_choix <- data.frame(data$Id,choix)
+datatable(data_choix,  colnames = c('id','origine') , rownames = FALSE,extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+```
+

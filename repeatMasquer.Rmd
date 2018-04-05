@@ -1,0 +1,61 @@
+---
+title: "Masquer les éléments répétés"
+author: "CHARRIAT Florian"
+date: "22 mars 2018"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+---
+
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+# knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
+
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = TRUE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+<p style="text-align:justify";>Dans le but de masquer les éléments répétés tels que les éléments transposables, l'outil repeatMasker a été utilisé. Le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">repeatMasker_build</a> a été réalisé dans le but de lancer tous les assemblages sélectionnés avec l'outil repeatMasker.</p>
+
+
+```{r Package, echo=FALSE}
+if(!require("knitr"))
+  {
+  install.packages('knitr')
+}
+if(!require("DT"))
+  {
+  install.packages('DT')
+  }
+library('knitr')
+library('DT')
+```
+
+&nbsp;
+
+#Statistique de l'outil repeatMasker
+
+Ce tableau présente les statistiques données par repeatMasker de chaque souche.
+
+&nbsp;
+
+```{r Importation des données, echo = FALSE}
+dataQuality <-c()
+WD <- '/home/charriat/Documents/Stage/StatQuality'
+file.quality <- file.path(WD,'stat_repeatMasker')
+data <- read.table(file=file.quality, sep="\t", header=TRUE)
+rownames(data) <- data[,1]
+data <- data[,2:ncol(data)]
+datatable(data,colnames = c('Id.souche', colnames(data)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) 
+```

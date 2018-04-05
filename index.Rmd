@@ -1,0 +1,27 @@
+---
+title: "Bienvenue"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+&nbsp;
+
+<p style="text-align:justify";>Ce site sera utilisé pour suivre le déroulement du stage. Il contiendra tous les rapports effectués et les [informations importantes](info.html) concernant le stage.</p>
+
+&nbsp;
+
+
+Date         |       Rapport                                                             
+------------ | --------------------------------------------------------------------------
+13 mars 2018 | [Assemblages des souches terrasses](rapport30.html)                       
+19 mars 2018 | [Assemblages des souches d'Adel](assembleSoucheAdel.html)                   
+20 mars 2018 | [Visualisation de la qualité de tout les assemblages](allAssemblage.html) 
+22 mars 2018 | [Masquer les éléments répétés](repeatMasquer.html)    
+29 mars 2018 | [Choix du meilleurs Assemblages](comparaison_assemblage.html)         
+29 mars 2018 | [Annotation](Annotation.html)                                            

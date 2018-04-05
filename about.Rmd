@@ -1,0 +1,18 @@
+---
+title: "A propos"
+output:
+  html_document:
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Ce site a entièrement été réalisé à l'aide de <a href="https://rmarkdown.rstudio.com/" target="_blank">rmarkdown</a> . Il a été créé dans le but de pouvoir visualiser tous les rapports réalisés dans le cadre du stage de Florian.
+
+Cliquer [ici](index.html) pour revenir sur la page d'accueil.
+
+

@@ -1,0 +1,35 @@
+name: Stage Florian
+navbar:
+  title: Rapport Florian
+  left:
+  - text: Information
+    icon: fa-info
+    href: info.html
+  - text: Rapport
+    icon: fa-book
+    menu:
+    - text: Assemblages des souches terrasses
+      href: rapport30.html
+    - text: Assemblages des souches d'Adel
+      href: assembleSoucheAdel.html
+    - text: Visualisation de la qualité de tout les assemblages
+      href: allAssemblage.html
+    - text: Masquer les éléments répétés
+      href: repeatMasquer.html
+    - text: Choix du meilleurs Assemblages
+      href: comparaison_assemblage.html
+    - text: Annotation
+      href: Annotation.html
+  - text: Présentation
+    icon: ion-easel
+    menu:
+    - text: Presentation du 3 avril 2018
+      href: Presentation/presentation_03_04_2018.html
+  right:
+  - icon: fa-info-circle
+    href: about.html
+output_dir: "."
+output:
+  html_document:
+    self_contained: no
+

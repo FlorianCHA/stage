@@ -1,0 +1,209 @@
+---
+title: "Informations Complémentaires"
+output:
+  html_document:
+    highlight: zenburn
+    theme: cerulean
+---
+
+
+#Les scripts
+<p style="text-align:justify";>Vous pouvez trouver les scripts réalisés dans le cadre du stage  <a href="https://github.com/FlorianCHA/Script/" target="_blank">ici</a> et toute la documentation <a href="https://floriancha.github.io/Script/index.html" target="_blank">ici</a></p>
+
+
+        
+# Tableau des souches
+<p style="text-align:justify";>Ici se trouvera la liste de toutes les souches avec les informations complémentaires (d'où provient la souche, projet gemo, pacbio etc ....)</p>
+
+Pour rappel :
+
+* 48 assemblages ont été selectionnés dans l'assemblage des souches provenant des terrasses.
+* 19 assemblages ont été selectionnés dans l'assemblage des souches séquencées par Adel.
+* 81 assemblages ont été récupérés dans la litterature (<a href=http://mbio.asm.org/content/9/1/e01219-17 target=_blank>mBio</a>)
+
+
+
+&nbsp;
+
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+# knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
+
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = TRUE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+
+```{r Packages, echo=FALSE}
+
+if(!require("knitr"))
+  {
+  install.packages('knitr')
+}
+if(!require("DT"))
+  {
+  install.packages('DT')
+  }
+library('knitr')
+library('DT')
+```
+
+
+```{r data Terrasses, echo=FALSE}
+############################ Assemblage terrasses ###########################################
+dataQuality <-c()
+WD <- '/home/charriat/Documents/Stage/StatQuality'
+file.quality <- file.path(WD,'QualityR_terrasses')
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+kmère <- c(20,30,40,50,60,70,80,90)
+Id <- c()
+j <- 1
+N50 <- data.frame(matrix(NA,ncol=length(kmère),nrow = (nrow(dataQuality)/8)))
+for (i in 1:(nrow(dataQuality)/8))
+{
+  Ids <- rownames(dataQuality[i*8,])
+  Id <- c(Id,substr(Ids,0,6))
+  N50[i,] <- dataQuality[j:(i*8),6]
+  j <- i*8+1
+}
+rownames(N50) <- Id
+colnames(N50) <- kmère
+selection <- data.frame(matrix(NA,ncol= ncol(dataQuality) ,nrow = (nrow(dataQuality)/8)))
+id.select <- c()
+for (i in 1:nrow(N50))
+{
+  bestKmer <- colnames(N50[i,])[which(N50[i,] == max(N50[i,]), arr.ind = TRUE)[2]]
+  newId <- paste(rownames(N50[i,]),toString(bestKmer),sep = '_')
+  id.select <- c(id.select,newId)
+  selection[i,] <-  dataQuality[rownames(dataQuality) ==newId,]
+}
+colnames(selection) <- colnames(dataQuality)
+rownames(selection) <- id.select
+select <- selection$N50 >= 25000
+unSelect <- selection$N50 < 25000
+dataSelect <- rownames(selection[select,])
+dataUnSelect <- rownames(selection[unSelect,])
+projet = c()
+statut = c()
+hôte = c()
+organisme = c()
+for (i in 1:length(dataSelect))
+{
+  statut = c(statut,'Sélectionné')
+  hôte = c(hôte,'Oryza sativa')
+  organisme = c(organisme,'Magnaporthe oryzae')
+  projet = c(projet,"<a href='rapport30.html' target='_blank'>Assemblage souche terrasses</a'>")
+}
+for (i in 1:length(dataUnSelect))
+{
+  statut = c(statut,'Non sélectionné')
+  hôte = c(hôte,'Oryza sativa')
+  organisme = c(organisme,'Magnaporthe oryzae')
+  projet = c(projet,"<a href='rapport30.html' target='_blank'>Assemblage souche terrasses</a'>")
+}
+
+dataTerrasses <- data.frame(projet,hôte,organisme,statut)
+rownames(dataTerrasses) <- c(dataSelect, dataUnSelect)
+```
+
+```{r Data Adel, echo = FALSE}
+############################ Assemblage souche Adel ###########################################
+dataQuality <-c()
+file.quality <- file.path(WD,'QualityR_Adel')
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+
+dataQ[,11] <- idSouche
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+
+kmère <- c(20,30,40,50,60,70,80,90)
+Id <- c()
+j <- 1
+N50 <- data.frame(matrix(NA,ncol=length(kmère),nrow = (nrow(dataQuality)/8)))
+for (i in 1:(nrow(dataQuality)/8))
+{
+  Ids <- rownames(dataQuality[i*8,])
+  Id <- c(Id,substr(Ids,0,6))
+  N50[i,] <- dataQuality[j:(i*8),6]
+  j <- i*8+1
+}
+rownames(N50) <- Id
+colnames(N50) <- kmère
+selection <- data.frame(matrix(NA,ncol= ncol(dataQuality) ,nrow = (nrow(dataQuality)/8)))
+id.select <- c()
+for (i in 1:nrow(N50))
+{
+  bestKmer <- colnames(N50[i,])[which(N50[i,] == max(N50[i,]), arr.ind = TRUE)[2]]
+  newId <- paste(rownames(N50[i,]),toString(bestKmer),sep = '_')
+  id.select <- c(id.select,newId)
+  selection[i,] <-  dataQuality[rownames(dataQuality) == newId,]
+
+}
+colnames(selection) <- colnames(dataQuality)
+rownames(selection) <- id.select
+
+select <- selection$N50 >= 25000
+unSelect <- selection$N50 < 25000
+dataSelect <- rownames(selection[select,])
+dataUnSelect <- rownames(selection[unSelect,])
+projet = c()
+organisme = c()
+hôte = c('Oryza sativa','Oryza sativa','Olium perenne','Olium perenne','Mais','Oryza sativa','Mais','Mais','Mais','Echinichola','Echinichola','Echinichola','Mais','Oryza sativa','Setaria','Oryza sativa','Oryza sativa','Oryza sativa','Setaria')
+statut = c()
+for (i in 1:length(dataSelect))
+{
+  organisme = c(organisme,'Magnaporthe oryzae')
+  statut = c(statut,'Sélectionné')
+  projet = c(projet,"<a href='assembleSoucheAdel.html' target='_blank'>Assemblage souche Adel</a'>")
+}
+dataAdel <- data.frame(projet,hôte,organisme,statut)
+rownames(dataAdel) <- dataSelect
+```
+
+```{r data litterature,echo = FALSE}
+wd <- '/home/charriat/Documents/Stage'
+file.literrature <- file.path(wd,'data-literrature.txt')
+dataL <- read.table(file=file.literrature, sep="\t", header=TRUE)
+rownames(dataL) <- dataL$id
+organisme <- c(rep('Magnaporthe oryzae',76),'Pyricularia pennisetigena',rep('Magnaporthe grisea',4))
+dataL <- data.frame(dataL[,2:3],organisme,dataL$statut)
+colnames(dataL) <- c('projet','hôte','organisme','statut')
+```
+
+
+
+```{r allData, echo=FALSE}
+####################### Toute les données ###########################
+allData <- rbind(dataTerrasses,dataAdel,dataL)
+
+datatable(allData,escape = FALSE, colnames = c('Id', colnames(allData)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+```
+
+
+

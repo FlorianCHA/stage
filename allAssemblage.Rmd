@@ -1,0 +1,180 @@
+---
+title: "Visualisation de la qualité de tout les Assemblages"
+author: "CHARRIAT Florian"
+date: "20 mars 2018"
+output:
+  html_document:
+    code_folding: hide
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+---
+
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+# knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
+
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = TRUE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+```{r Package , echo=FALSE}
+if(!require("knitr"))
+  {
+  install.packages('knitr')
+}
+if(!require("DT"))
+  {
+  install.packages('DT')
+  }
+library('knitr')
+library('DT')
+```
+
+#Traitement des données
+
+<p style="text-align:justify";>Les données sont importées dans R afin de pouvoir ensuite les traiter.</p>
+```{r Importation des données}
+dataQuality <-c()
+WD <- '/home/charriat/Documents/Stage/StatQuality'
+file.quality <- file.path(WD,'allStatQuality')
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+
+dataQ[,11] <- idSouche
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+```
+
+<p style="text-align:justify";>Puis, les `r nrow(dataQuality)` assemblages sont traitées afin d'obtenir un tableau qui permettra de visualiser les différents N50 obtenus en fonction de la longueur du kmère.</p>
+
+```{r Traitement des données}
+kmère <- c(20,30,40,50,60,70,80,90)
+Id <- c()
+j <- 1
+N50 <- data.frame(matrix(NA,ncol=length(kmère),nrow = (nrow(dataQuality)/8)))
+for (i in 1:(nrow(dataQuality)/8))
+{
+  Ids <- rownames(dataQuality[i*8,])
+  Id <- c(Id,substr(Ids,0,6))
+  N50[i,] <- dataQuality[j:(i*8),6]
+  j <- i*8+1
+}
+rownames(N50) <- Id
+colnames(N50) <- kmère
+
+```
+
+#Visualisation des données
+
+<p style="text-align:justify";>Le tableau n°1 montre toutes les données statistiques de chaque assemblage. Dans ce tableau l'id est composé de l'identifiant de la souche suivit de la longueur du kmère utilisée pour l'assemblage. Le tableau n°2 montre les différents N50 obtenus de chaque souche en fonction de la longueur du kmère choisie  pour l'assemblage.</p>
+
+
+##Données qualité 
+```{R Visualisation des données brut}
+datatable(dataQuality, caption =" Tableau n°1: Tableau des statistiques de qualité de tous les assemblages",colnames = c('Id', colnames(dataQuality)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) 
+```
+
+&nbsp;
+
+##N50 en fonction de la longueur du kmère
+```{R Visualisation des données}
+
+#kable(N50, caption =" Tableau n°2: Comparaison de la qualité de l'Assemblage (N50) en fonction de la longueur de kmère utilisée")
+datatable(N50, caption =" Tableau n°2: Comparaison de la qualité de l'Assemblage (N50) en fonction de la longueur de kmère utilisée",colnames = c('Id', colnames(N50)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+```
+
+&nbsp;
+
+#Selection des assemblages
+
+<p style="text-align:justify";>Ici, le but est de choisir la longueur de kmère utilisée qui donne le meilleur assemblage pour chaque souche.</p>
+<p style="text-align:justify";>Le meilleur assemblage de chaque souche est déterminé par rapport au N50. Pour cela, pour chaque souche, l'assemblage avec le N50 le plus élevé est sélectionné. Dans le tableau n°3, les meilleurs assemblages sont donc donnés avec en id, l'id de la souche suivie de la longueur du kmère utilisée. Les N50 en gras sont ceux supérieur à 25 000.</p>
+
+```{r selection}
+selection <- data.frame(matrix(NA,ncol= ncol(dataQuality) ,nrow = (nrow(dataQuality)/8)))
+id.select <- c()
+for (i in 1:nrow(N50))
+{
+  bestKmer <- colnames(N50[i,])[which(N50[i,] == max(N50[i,]), arr.ind = TRUE)[2]]
+  newId <- paste(rownames(N50[i,]),toString(bestKmer),sep = '_')
+  id.select <- c(id.select,newId)
+  selection[i,] <-  dataQuality[rownames(dataQuality) == newId,]
+
+}
+colnames(selection) <- colnames(dataQuality)
+rownames(selection) <- id.select
+
+#kable(selection, caption =" Tableau n°3: Données de qualité des meilleurs assemblages selectionnés en fonction de la longueur de kmère utilisée")
+datatable(selection, caption =" Tableau n°3: Données de qualité des meilleurs assemblages selectionnés en fonction de la longueur de kmère utilisée", colnames = c('Id', colnames(selection)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))%>%
+  formatStyle('N50',Color = styleInterval(25000, c('NA', 'black')),fontWeight= styleInterval(25000, c('NA', 'black')))
+
+```
+
+&nbsp;
+
+#Visualisation des graph
+
+<p style="text-align:justify";> Ensuite les graphiques qui montrent les principales statistiques de qualité des assemblages après sélection du kmère optimale sont montrés. Une différence est constatée entre deux groupes. Cela montre que certains assemblages sont de mauvaise qualité. Une sélection des assemblages avec un N50 supérieur à 25 000 est réalisée. Sur le graphique n°6 cela correspond au point au-dessus de la ligne horizontale rouge.</p>
+
+###Graph N50
+```{r plot N50}
+color <- c()
+id.plot <- rownames(selection)
+x <- 1:nrow(selection)
+N50max <- 25000 # Selection des assemblage avec un N50 supérieur à 25 000
+select <- selection$N50 > 25000
+unselect <- selection$N50 < 25000
+color[select] <- 'red'
+color[unselect] <- 'black'
+plot(x = x, y = selection$N50, xlab = 'souche', ylab ='N50',xaxt="n" , main ='Graphique n°6 : Assemblage de chaque souche en fonction du N50', col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+abline(h=N50max,col="red") 
+#text(x= x[select], y = (selection$N50[select] -10000),lab = rownames(selection[select,]), cex=0.6)
+```
+
+###Graph L50
+```{r plot L50}
+plot(x = x, y = selection$L50, xlab = 'souche', ylab ='L50',xaxt="n" ,main ='Grapĥique n°7 : Assemblage de chaque souche en fonction du L50', col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+```
+
+###Graph E-size
+```{r plot E-size}
+plot(x = x, y = selection$E.size, xlab = 'souche', ylab ='E-size',xaxt="n" ,main ="Graphique n°8 : Assemblage de chaque souche en fonction de l'E-size", col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+```
+
+###Graph Longueur max
+```{r plot longuer max du contigs}
+plot(x = x, y = selection$max, xlab = 'souche', ylab ='max',xaxt="n" , main ='Graphique n°9 : Assemblage de chaque souche en fonction de la longueur max des contigs', col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+```
+
+###Graph n:500
+```{r plot n500}
+plot(x = x, y = selection$n.500, xlab = 'souche', ylab ='max',xaxt="n" , main ='Graphique n°10 : Assemblage de chaque souche en fonction en fonction \n du nombre de contigs supérieur à 500', col = color, cex = 0.4)
+axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
+
+
+```
+
