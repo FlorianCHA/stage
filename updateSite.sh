@@ -1,6 +1,5 @@
 date=`date`
-message="$1 date : $date"
+messageCommit="$1 date : $date"
 git add *
-messageCommit= echo $message
-git commit -m echo $messageCommit
+git commit -m "'$messageCommit'"
 git push
