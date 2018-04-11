@@ -1,0 +1,45 @@
+---
+title: "Bibliographie"
+output:
+  BibTeX_document:
+  html_document:
+    code_folding: hide
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+---
+
+------------------
+##Sujet
+
+1. <p style="text-align:justify";>Salcedo A, Rutter W, Wang S, Akhunova A, Bolus S, Chao S, Anderson N, De Soto MF, Rouse M, Szabo L, Bowden RL, Dubcovsky J, Akhunov E, 2017. Variation in the <i>AvrSr35</i> gene determines <i>Sr35</i> resistance against wheat stem rust race Ug99. Science. 22;358(6370):1604-1606. doi\: 10.1126/science.aao7294.<br> <a href="https://www.ncbi.nlm.nih.gov/pubmed/29269474" target="_blank">[PubMed]</a></br> </p>
+
+2. <p style="text-align:justify";>Plissonneau C., Benevenuto J., Mohd-Assaad N., Fouché S., Hartmann F. E., Croll D. (2017). Using population and comparative genomics to understand the genetic basis of effector-driven fungal pathogen evolution. Front. Plant Sci. 8, 1–15. 10.3389/fpls.2017.00119. <br> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5289978/ target="_blank">[PMC free article]</a> &nbsp; <a href="https://www.ncbi.nlm.nih.gov/pubmed/28217138" target="_blank">[PubMed]</a></br> </p>
+
+3. <p style="text-align:justify";>Lo Presti L., Lanver D., Schweizer G., Tanaka S., Liang L., Tollot M., et al. . (2015). Fungal effectors and plant susceptibility. Annu. Rev. Plant Biol. 66, 513–545. 10.1146/annurev-arplant-043014-114623.<br> <a href="https://www.ncbi.nlm.nih.gov/pubmed/25923844" target="_blank">[PubMed]</a></br> </p>
+
+------------------
+
+##Assemblage
+
+2. <p style="text-align:justify";>Simpson JT, et al. , 2009. ABySS: a parallel assembler for short read sequence data. Genome Res. 19(6):1117–1123.<br> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2694472/" target="_blank">[PMC free article]</a> &nbsp; <a href="https://www.ncbi.nlm.nih.gov/pubmed/19251739" target="_blank">[PubMed]</a></br> </p>
+
+------------------
+
+##Annotation
+
+3. <p style="text-align:justify";>Monat C, Tranchant-Dubreuil C, Kougbeadjo A, Farcy C, Ortega-Abboud E, Amanzougarene S, Ravel S, Agbessi M, Orjuela-Bouniol J, Summo M, Sabot F. 2015. TOGGLE: toolbox for generic NGS analyses. BMC Bioinformatics 16\:374. doi\:10.1186/s12859-015-0795-6.<br> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4640241/" target="_blank">[PMC free article]</a> &nbsp; <a href="https://www.ncbi.nlm.nih.gov/pubmed/26552596" target="_blank">[PubMed]</a></br> </p>
+
+4. <p style="text-align:justify";>Hoff KJ, Lange S, Lomsadze A, Borodovsky M, Stanke M. 2016. BRAKER1: unsupervised RNA-Seq-based genome annotation with GeneMark-ET and Augustus. Bioinformatics 32\:767–769. doi\:10.1093/bioinformatics/btv661.<br> <a href="https://www.ncbi.nlm.nih.gov/pubmed/26559507" target="_blank">[PubMed]</a></br></p>
+
+------------------
+
+##Prediction secretome et Effecteur
+
+5. <p style="text-align:justify";>Sperschneider J, Gardiner DM, Dodds PN, Tini F, Covarelli L, Singh KB, Manners JM, Taylor JM. 2016. EffectorP: predicting fungal effector proteins from secretomes using machine learning. New Phytol 210\:743–761. doi\:10.1111/nph.13794. <br> <a href="https://www.ncbi.nlm.nih.gov/pubmed/26680733" target="_blank">[PubMed]</a></br></p>
+
+6. <p style="text-align:justify";>Sperschneider J, Williams AH, Hane JK, Singh KB, Taylor JM. 2015. Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors. Front Plant Sci 6\:1168. doi\:10.3389/fpls.2015.01168. <br> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4688413/" target="_blank">[PMC free article]</a> &nbsp; <a href="https://www.ncbi.nlm.nih.gov/pubmed/26779196" target="_blank">[PubMed]</a> </br> </p>
+
