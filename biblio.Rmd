@@ -37,7 +37,7 @@ output:
 
 ------------------
 
-##Prediction secretome et Effecteur
+##Prediction Secretome et Effecteur
 
 5. <p style="text-align:justify";>Sperschneider J, Gardiner DM, Dodds PN, Tini F, Covarelli L, Singh KB, Manners JM, Taylor JM. 2016. EffectorP: predicting fungal effector proteins from secretomes using machine learning. New Phytol 210\:743–761. doi\:10.1111/nph.13794. <br> <a href="https://www.ncbi.nlm.nih.gov/pubmed/26680733" target="_blank">[PubMed]</a></br></p>
 
