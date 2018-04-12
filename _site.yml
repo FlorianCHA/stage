@@ -6,7 +6,7 @@ navbar:
     icon: fa-info
     href: info.html
   - text: Rapport
-    icon: fa-book
+    icon: fa-folder-open
     menu:
     - text: Assemblages des souches terrasses
       href: rapport30.html
@@ -26,6 +26,7 @@ navbar:
     - text: Presentation du 3 avril 2018
       href: Presentation/presentation_03_04_2018.html
   - text: "Bibliographie"
+    icon: fa-book
     href: biblio.html
   right:
   - icon: fa-info-circle

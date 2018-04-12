@@ -205,5 +205,3 @@ allData <- rbind(dataTerrasses,dataAdel,dataL)
 datatable(allData,escape = FALSE, colnames = c('Id', colnames(allData)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
 ```
 
-
-
