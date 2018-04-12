@@ -44,7 +44,7 @@ library('knitr')
 library('DT')
 ```
 
-<p style="text-align:justify";>Après avoir masqué les séquences répétées dans tous les assemblages, une annotation est réalisée pour chaque assemblage L'annotation est réalisée avec l'outil BRAKER. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier bam contenant les alignements de RNAseq sur le génome. Pour cela une première étape est de réaliser un alignement des fichiers RNAseq sélectionnés avec chaque génome assemblé.</p>
+<p style="text-align:justify";>Après avoir masqué les séquences répétées dans tous les assemblages, une annotation est réalisée pour chaque assemblage L'annotation est réalisée avec l'outil BRAKER <a href='biblio.html#annotation1'>[5]</a>. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier bam contenant les alignements de RNAseq sur le génome. Pour cela une première étape est de réaliser un alignement des fichiers RNAseq sélectionnés avec chaque génome assemblé.</p>
 
 #Création des fichiers BAM
 
@@ -65,7 +65,7 @@ datatable(data, caption =" Tableau n°1: Liste des données RNAseq utilisées po
 ###RNAseq InPlanta
 
 <p style="text-align:justify";>Parmi ces 32 fichiers RNAseq, 13 proviennent de condition In Planta. Ce qui signifie que ces 13 fichiers contiennent les ARNs de M.oryzae mais aussi de l'hôte, ici le riz. Ces fichiers de RNAseq In planta doivent donc dans un premier temps être traités pour éliminer les ARNs de la plante en question. C'est pourquoi pour sélectionner seulement les séquences de M.oryzae, les 13 fichiers sont alignés avec le génome du riz. Seules les séquences qui ne se sont pas alignés avec le génome du riz sont récupérées. Pour cela le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">forRNAseq_inPlanta</a> a été réalisé.</p>
-<p style="text-align:justify";>Pour l'alignement l'outil tophat est utilisé, en sortie il donne un fichier unmapped.bam contenant les séquences qui ne se sont pas alignés avec le génome du riz. Ces fichiers bam sont récupérés puis convertis en fichier fastq grâce à l'outil samtool bam2fq.</p>
+<p style="text-align:justify";>Pour l'alignement l'outil TOGGLE <a href='biblio.html#annotation2'>[6]</a> est utilisé. Cette outils permet,ici, de lancer l'outils tophat sur tous les fichiers RNAseq disponible.L'outils donne en sortie un fichier unmapped.bam contenant les séquences qui ne se sont pas alignés avec le génome du riz. Ces fichiers bam sont récupérés puis convertis en fichier fastq grâce à l'outil samtool bam2fq.</p>
 
 ###Modification des assemblages
 

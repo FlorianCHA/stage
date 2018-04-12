@@ -43,7 +43,7 @@ library('knitr')
 library('DT')
 ```
 
-<p style="text-align:justify";>Dans un premier temps les 19 souches sont assemblées avec l'outil ABYSS. Plusieurs assemblages sont effectués pour chaque souche avec différentes tailles de k-mère. Puis le meilleur assemblage de chaque souche est sélectionné. La sélection se fait après visualisation des données de qualité de chaque assemblage. Ces données qualités sont présentées dans la suite du rapport.</p>
+<p style="text-align:justify";>Dans un premier temps les 19 souches sont assemblées avec l'outil ABYSS <a href='biblio.html#assemblage1'>[4]</a> . Plusieurs assemblages sont effectués pour chaque souche avec différentes tailles de k-mère. Puis le meilleur assemblage de chaque souche est sélectionné. La sélection se fait après visualisation des données de qualité de chaque assemblage. Ces données qualités sont présentées dans la suite du rapport.</p>
 
 <p style="text-align:justify";>Les différrents assemblage ont été lancé avec le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">ABYSS_launch</a>. Les données qualités utilisées pour selectionner le meilleurs assemblage ont été récupéré avec le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">Qualtiy</a> </p>
 

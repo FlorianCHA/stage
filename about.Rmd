@@ -15,8 +15,7 @@ Ce site a entièrement été réalisé à l'aide de <a href="https://rmarkdown.r
 
 ###Contact
 
-Pour poser des questions par rapport au stage, vous pouvez me contacter à l'adresse suivante : <a href="mailto:florian.charriat@gmail.com">florian.charriat@gmail.com</a>
-
+Pour poser des questions par rapport au stage, vous pouvez me contacter à l'adresse suivante : <a href="mailto:florian.charriat@gmail.com">Florian.Charriat@inra.fr</a>
 
 
 
