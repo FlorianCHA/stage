@@ -107,17 +107,19 @@ projet = c()
 statut = c()
 hôte = c()
 organisme = c()
+groupeSelect <- c('terrasse_c','terrasse_c','terrasse_c','terrasse_b','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_b','1','terrasse_c','terrasse_c','1','terrasse_c','3','terrasse_c','terrasse_c','terrasse_c','3','terrasse_c','terrasse_c','3','terrasse_c','terrasse_c','5','a','terrasse_c','terrasse_b','3','terrasse_c','terrasse_c','terrasse_c','terrasse_a','terrasse_a','1','terrasse_a','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_c','3','terrasse_c','terrasse_c','terrasse_c','terrasse_c')
+groupeUnSelect <- c('3','NA','3','3','2','4','2','NA','1','1',' 1','1','4','3','2','3','1','1')
 for (i in 1:length(dataSelect))
 {
   statut = c(statut,'Sélectionné')
-  hôte = c(hôte,'Oryza sativa')
+  hôte = c(hôte,paste('Rice, lineage :',groupeSelect[i]))
   organisme = c(organisme,'Magnaporthe oryzae')
   projet = c(projet,"<a href='rapport30.html' target='_blank'>Assemblage souche terrasses</a'>")
 }
 for (i in 1:length(dataUnSelect))
 {
   statut = c(statut,'Non sélectionné')
-  hôte = c(hôte,'Oryza sativa')
+  hôte = c(hôte,paste('Rice, lineage :',groupeUnSelect[i]))
   organisme = c(organisme,'Magnaporthe oryzae')
   projet = c(projet,"<a href='rapport30.html' target='_blank'>Assemblage souche terrasses</a'>")
 }
@@ -175,7 +177,7 @@ dataSelect <- rownames(selection[select,])
 dataUnSelect <- rownames(selection[unSelect,])
 projet = c()
 organisme = c()
-hôte = c('Oryza sativa','Oryza sativa','Olium perenne','Olium perenne','Mais','Oryza sativa','Mais','Mais','Mais','Echinichola','Echinichola','Echinichola','Mais','Oryza sativa','Setaria','Oryza sativa','Oryza sativa','Oryza sativa','Setaria')
+hôte = c('Rice, lineage : 2 ','Rice, lineage : 3','Olium perenne','Olium perenne','Mais','Rice, lineage : NA','Mais','Mais','Mais','Echinichola','Echinichola','Echinichola','Mais','Rice, lineage : 2','Setaria','Rice, lineage : 3','Rice, lineage : ??','Rice, lineage : 2','Setaria')
 statut = c()
 for (i in 1:length(dataSelect))
 {
@@ -183,6 +185,7 @@ for (i in 1:length(dataSelect))
   statut = c(statut,'Sélectionné')
   projet = c(projet,"<a href='assembleSoucheAdel.html' target='_blank'>Assemblage souche Adel</a'>")
 }
+
 dataAdel <- data.frame(projet,hôte,organisme,statut)
 rownames(dataAdel) <- dataSelect
 ```
