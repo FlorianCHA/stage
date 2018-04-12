@@ -6,6 +6,7 @@ output:
     theme: cerulean
 ---
 
+<a href='biblio.html#annotation1'>[1]</a>
 
 #Les scripts
 <p style="text-align:justify";>Vous pouvez trouver les scripts réalisés dans le cadre du stage  <a href="https://github.com/FlorianCHA/Script/" target="_blank">ici</a> et toute la documentation <a href="https://floriancha.github.io/Script/index.html" target="_blank">ici</a></p>
