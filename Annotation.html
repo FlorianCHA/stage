@@ -377,15 +377,18 @@ div.tocify {
 
 
 <p style="text-align:justify" ;>
-Après avoir masqué les séquences répétées dans tous les assemblages, une annotation est réalisée pour chaque assemblage L’annotation est réalisée avec l’outil BRAKER <a href='biblio.html#annotation1'>[5]</a>. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier bam contenant les alignements de RNAseq sur le génome. Pour cela une première étape est de réaliser un alignement des fichiers RNAseq sélectionnés avec chaque génome assemblé.
+Après avoir masqué les séquences répétées dans tous les assemblages, une annotation est réalisée pour chaque assemblage L’annotation est réalisée avec l’outil BRAKER <a href='biblio.html#annotation1'>[5]</a>. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier hints.Gff.
+</p>
+<p style="text-align:justify" ;>
+Le fichier hints.gff va être obtenue par alignement de donnée RNAseq avec le genome mais aussi par alignement d’un fichier d’annotation protéique du génome provenant de 70-15. Pour cela une première étape est de réaliser un alignement des fichiers RNAseq sélectionnés avec chaque génome assemblé puis de crée le fichier hints à l’aide de l’outils bam2hints. La deuxième étape sera l’utilisation de l’outil exonerate pour aligné le fichier protéine sur le genome et récupéré les introns hints. La dernière étape sera de merge les deux fichier hints pour en former qu’un seul.
 </p>
 <div id="creation-des-fichiers-bam" class="section level1">
 <h1>Création des fichiers BAM</h1>
 <p style="text-align:justify" ;>
 Dans cette première étape, 32 fichiers de RNAseq ont été utilisés. Le tableau ci dessous présent tous les données RNAseq utilisées.
 </p>
-<div id="htmlwidget-f9e5bd3e2e38f27b9a65" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f9e5bd3e2e38f27b9a65">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°1: Liste des données RNAseq utilisées pour l'annotation<\/caption>","data":[["FR13-myc","FR13.sari.3dpi.RNAtot","Mg1","Mg2","Mg3","SRR651980","SRR651981","SRR651982","SRR1561422","SRR298683","SRR298684","SRR298685","SRR298686","SRR298687","SRR298688","SRR298689","SRR298690","SRR298691","SRR298692","SRR651979","HH27","HH28","HH29","HH35","HH36","HH37","S37","S39","S40","S117","S119","S120"],["Projet GEMO Run1","Projet GEMO Run1 (inPlanta)","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-69da3c35aa80e50216a0" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-69da3c35aa80e50216a0">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°1: Liste des données RNAseq utilisées pour l'annotation<\/caption>","data":[["FR13-myc","FR13.sari.3dpi.RNAtot","Mg1","Mg2","Mg3","SRR651980","SRR651981","SRR651982","SRR1561422","SRR298683","SRR298684","SRR298685","SRR298686","SRR298687","SRR298688","SRR298689","SRR298690","SRR298691","SRR298692","SRR651979","HH27","HH28","HH29","HH35","HH36","HH37","S37","S39","S40","S117","S119","S120"],["Projet GEMO Run1","Projet GEMO Run1 (inPlanta)","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p> </p>
 <div id="rnaseq-inplanta" class="section level3">
 <h3>RNAseq InPlanta</h3>
@@ -405,7 +408,7 @@ Le script <a href="https://floriancha.github.io/Script/index.html" target="_blan
 <div id="mapping-des-donnees-rnaseq" class="section level3">
 <h3>Mapping des données RNAseq</h3>
 <p style="text-align:justify" ;>
-Pour l’alignement des 32 RNAseq sur chaque assemblage, le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">Alignement</a> à été réalisé. Ce script utilise l’outil Toogle afin de mapper chaque donnée RNAseq avec l’assemblage. Puis les données sont triées avec l’outil picard pour ensuite être tous mergé ensemble avec l’outil Samtools merge. Enfin pour pouvoir être utilisé par BRAKER, le fichier contenant tous les alignements entre les données RNAseq et le génome va être transformé à l’aide de l’outil Bam2hints et d’un script R.
+Pour l’alignement des 32 RNAseq sur chaque assemblage, l’outils TOGGLE va être utilisé afin de mapper chaque donnée RNAseq avec l’assemblage. Puis les données sont triées avec l’outil picard pour ensuite être tous mergé ensemble avec l’outil Samtools merge. Enfin pour pouvoir être utilisé par BRAKER, le fichier contenant tous les alignements entre les données RNAseq et le génome va être transformé à l’aide de l’outil Bam2hints et d’un script R.
 </p>
 </div>
 </div>
