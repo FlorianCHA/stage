@@ -1,0 +1,110 @@
+---
+title: "<h1 align='center'><font size='+7'>Présentation de l'avancement du projet</font></h1>" 
+author: "<p align='center'>Florian CHARRIAT</p>"
+date: "<p align='center'>17 Avril 2018</p>"
+output:
+  slidy_presentation:
+    footer : "<a href='https://floriancha.github.io/stage/'>Retour au site</a> &nbsp; <a href='presentation_17_04_2018.pdf'
+   download='presentation_17_04_2018.pdf'>Télécharger le diapo</a>"
+    highlight: zenburn
+    incremental: yes
+    theme: cerulean
+    fig_caption: true
+    font_adjustment: -1
+  beamer_presentation:
+    highlight: zenburn
+    incremental: yes
+---
+
+
+```{r include=FALSE, echo=FALSE, eval=TRUE}
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 13, fig.height = 8, 
+  fig.path='figures',
+  fig.align = "center", 
+  size = "tiny", 
+  echo = FALSE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+#Résumé
+
+
+
+&nbsp;
+
+> - Assemblage
+
+>> - Outils ABYSS
+>> - 67 souches séléctionnées (44 souches des terrasses et 19 souhces séquencées par Adel)
+>> - 30 souches en cours de séquençage
+
+> - RepeatMasker
+
+>> - 4.67 à 8.18 % des séquences  masquées
+>> - Certains scaffolds ne sont constitués que d’éléments répétés
+
+
+> - Souche disponible pour la suite
+
+>> - 67 souches assemblées
+>> - 85 souches de la litterrature
+>> - 4 souches PacBio
+
+#Annotation
+&nbsp;
+
+> - Braker :
+
+>> - Input :
+
+>>> -  Assemblage au format Fasta
+>>> - Alignement de RNAseq sur le genome au format Bam ou fichier gff des intron issue de ce RNA seq
+
+> - Annotation :
+
+>> - Création d'un fichier gff des introns :
+
+>>> - Bam2hints :  hints issue de l'alignement des RNAseq
+>>> - Exonerate : hints issues de l'annotation des protéines de la souche 70-15 
+
+#Recherche de protéines sécrétées
+
+&emsp; &emsp; <img src="schemaCecile.png" width="400" height="650" alt="Pipeline de prédiction du secretome de Cecile Lorrain">
+
+&emsp; &emsp; <font size="-1">Tableau 1: Pipeline de prédiction du secretome de Cecile Lorrain </font> 
+
+
+#Comparaison outils
+
+&nbsp;
+
+![Choix outils](tableComparaisonTools.png)
+<font size="-1">Tableau 2: Performance of secretion prediction tools applied to secreted fungal proteins sourced from SwissProt. Table issue de <span>*Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors*</span> [1] </font> 
+
+&nbsp;
+
+&nbsp;
+
+<font size="3">[1] Sperschneider J, Williams AH, Hane JK, Singh KB, Taylor JM. 2015. Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors. Front Plant Sci 6:1168. doi:10.3389/fpls.2015.01168. </font> 
+
+
+#Fin
+
+
+
+
+
+
+
+
+
+
+
+
