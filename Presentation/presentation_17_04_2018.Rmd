@@ -78,21 +78,41 @@ knitr::opts_chunk$set(
 
 &emsp; &emsp; <img src="schemaCecile.png" width="400" height="650" alt="Pipeline de prédiction du secretome de Cecile Lorrain">
 
-&emsp; &emsp; <font size="-1">Tableau 1: Pipeline de prédiction du secretome de Cecile Lorrain </font> 
+&emsp; &emsp; <font size="-1">Figure 1: Pipeline de prédiction du secretome de Cecile Lorrain </font> 
 
 
-#Comparaison outils
+#Comparaison outils
 
 &nbsp;
 
-![Choix outils](tableComparaisonTools.png)
-<font size="-1">Tableau 2: Performance of secretion prediction tools applied to secreted fungal proteins sourced from SwissProt. Table issue de <span>*Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors*</span> [1] </font> 
+![](tableComparaisonTools.png)
+<font size="-1";>Tableau 1: Performance of secretion prediction tools applied to secreted fungal proteins sourced from SwissProt. Table issue de <span>*Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors*</span> [1] </font> 
+
+&nbsp;
 
 &nbsp;
 
 &nbsp;
 
 <font size="3">[1] Sperschneider J, Williams AH, Hane JK, Singh KB, Taylor JM. 2015. Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors. Front Plant Sci 6:1168. doi:10.3389/fpls.2015.01168. </font> 
+
+#Comparaison outils 1
+
+&nbsp;
+
+![](OutilsvsEffecteur.png)
+
+
+<span style="line-height:4pt;font-size: 10pt";>Tableau 2: Sensitivity of secretion prediction tools for secreted fungal proteins, fungal effectors, and oomycete effectors. Table issue de *Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors* [1]</span>
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+<font size="3">[1] Sperschneider J, Williams AH, Hane JK, Singh KB, Taylor JM. 2015. Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors. Front Plant Sci 6:1168. doi:10.3389/fpls.2015.01168. </font> 
+
 
 
 #Fin
