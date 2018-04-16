@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 
 ```
 
-<p style="text-align:justify";>Dans le but de masquer les éléments répétés tels que les éléments transposables, l'outil repeatMasker a été utilisé. Le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">repeatMasker_build</a> a été réalisé dans le but de lancer tous les assemblages sélectionnés avec l'outil repeatMasker.</p>
+<p style="text-align:justify";>Dans le but de masquer les éléments répétés tels que les éléments transposables, l'outil repeatMasker <a href='biblio.html#annotation1'>[5]</a> a été utilisé. Le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">repeatMasker_build</a> a été réalisé dans le but de lancer tous les assemblages sélectionnés avec l'outil repeatMasker.</p>
 
 
 ```{r Package, echo=FALSE}
