@@ -96,7 +96,7 @@ knitr::opts_chunk$set(
 
 <font size="3">[1] Sperschneider J, Williams AH, Hane JK, Singh KB, Taylor JM. 2015. Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors. Front Plant Sci 6:1168. doi:10.3389/fpls.2015.01168. </font> 
 
-#Comparaison outils 1
+#Comparaison outils (suite)
 
 &nbsp;
 
