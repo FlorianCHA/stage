@@ -42,7 +42,7 @@ knitr::opts_chunk$set(
 > - Assemblage
 
 >> - Outils ABYSS
->> - 67 souches séléctionnées (44 souches des terrasses et 19 souhces séquencées par Adel)
+>> - 67 souches séléctionnées (44 souches des terrasses et 19 souches séquencées par Adel)
 >> - 30 souches en cours de séquençage
 
 > - RepeatMasker
@@ -65,13 +65,13 @@ knitr::opts_chunk$set(
 >> - Input :
 
 >>> -  Assemblage au format Fasta
->>> - Alignement de RNAseq sur le genome au format Bam ou fichier gff des intron issue de ce RNA seq
+>>> - Alignement de RNAseq sur le genome au format Bam ou fichier gff des introns issus des données RNAseq
 
 > - Annotation :
 
 >> - Création d'un fichier gff des introns :
 
->>> - Bam2hints :  hints issue de l'alignement des RNAseq
+>>> - Bam2hints :  hints issue de l'alignement des données RNAseq
 >>> - Exonerate : hints issues de l'annotation des protéines de la souche 70-15 
 
 #Recherche de protéines sécrétées
