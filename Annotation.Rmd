@@ -45,7 +45,7 @@ library('DT')
 ```
 
 <p style="text-align:justify";>Après avoir masqué les séquences répétées dans tous les assemblages, une annotation est réalisée pour chaque assemblage L'annotation est réalisée avec l'outil BRAKER <a href='biblio.html#annotation2'>[6]</a>. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier hints.Gff.</p>
-<p style="text-align:justify";>Le fichier hints.gff va être obtenue par alignement de donnée RNAseq avec le genome mais aussi par alignement d'un fichier d'annotation protéique du génome provenant de 70-15. Pour cela une première étape est de réaliser un alignement des fichiers RNAseq sélectionnés avec chaque génome assemblé puis de crée le fichier hints à l'aide de l'outils bam2hints. La deuxième étape sera l'utilisation de l'outil exonerate pour aligné le fichier protéine sur le genome et récupéré les introns hints. La dernière étape sera de merge les deux fichier hints pour en former qu'un seul.</p>
+<p style="text-align:justify";>Le fichier hints.gff va être obtenu par alignement de données RNAseq avec le génome mais aussi par alignement d'un fichier d'annotation protéique du génome provenant de 70-15. Pour cela une première étape est de réaliser un alignement des fichiers RNAseq sélectionnés avec chaque génome assemblé puis de créer le fichier hints à l'aide de l'outil bam2hints. La deuxième étape sera l'utilisation de l'outil exonerate pour aligner le fichier protéine sur le génome et récupéré les introns hints. La dernière étape sera de merger les deux fichiers hints pour en former qu'un seul.</p>
 
 #Création des fichiers BAM
 
