@@ -30,6 +30,11 @@ navbar:
   - text: "Bibliographie"
     icon: fa-book
     href: biblio.html
+  - text: "App"
+    menu:
+    - text: 'File Visualizer'
+      icon: fa-box-open
+      href: 'https://floriancha.shinyapps.io/Open_file_with_R/'
   right:
   - icon: fa-info-circle
     href: about.html
