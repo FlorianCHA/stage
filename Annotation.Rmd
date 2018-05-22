@@ -12,6 +12,7 @@ output:
     toc_depth: 5
     toc_float: yes
 ---
+
 ```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
 # knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
 
@@ -47,7 +48,7 @@ library('DT')
 
 <p style="text-align:justify";>Dans un premier temps, Le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">formatFastaName</a> est utilsé. Il va , pour chaque assemblage, changer les noms des scaffolds. Les scaffolds seront numérotés en fonction de leur longueur, ainsi le plus grand scaffold sera nommé scaffold_1. En description de chaque scaffold sa longueur sera donnée. En revanche seul la souche WHTQ va voir ses scaffold renommé, en revanche les autres souches de la litterature conseront leur nom de scaffold.</p>
 
-<p style="text-align:justify";>L'annotation est réalisée avec l'outil BRAKER <a href='biblio.html#annotation2'>[6]</a>. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier hints.Gff. Tous le pipeline d'annotation excépté le pré-traitement des données RNAseq inPlanta est lancée avec le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">BRAKER_pipeline</a>.</p>
+<p style="text-align:justify";>L'annotation est réalisée avec l'outil BRAKER <a href='biblio.html#annotation2'>[6]</a>. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier hints.Gff. Tous le pipeline d'annotation excépté le pré-traitement des données RNAseq inPlanta est lancée avec le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">BRAKER_pipeline</a>.Ce script va réaliser toutes les étapes necessaires à la création des fichiers d'annotation.</p>
 
 #Création du fichier hints
 
@@ -55,7 +56,7 @@ library('DT')
 
 <p style="text-align:justify";>Les deux fichiers hints (issu de données RNAseq ou du fichier d'annotation protéine) sont d'abord généré séparément. Ils seront ensuite mergés ensemble.</p>
 
-###Création du fichier hints issu du RNAseq
+###Hints RNAseq
 
 <p style="text-align:justify";>Dans cette première étape, 32 fichiers de RNAseq ont été utilisés. Le tableau ci dessous présent tous les données RNAseq utilisées.</p>
 
@@ -81,14 +82,22 @@ datatable(data, caption =" Tableau n°1: Liste des données RNAseq utilisées po
 
 <p style="text-align:justify";>Pour l'alignement des 32 RNAseq sur chaque assemblage, l'outils TOGGLE va être utilisé afin de mapper chaque donnée RNAseq avec l'assemblage. Puis les données sont triées avec l'outil picard pour ensuite être tous mergé ensemble avec l'outil Samtools merge. Enfin le fichier contenant tous les alignements entre les données RNAseq et le génome va être transformé à l'aide de l'outil Bam2hints et d'un script R.</p>
 
-###Création du fichier hints issu du RNAseq
+####Création du fichier hints issu du RNAseq
 
 <p style="text-align:justify";>Une fois le fichier hints issu des données RNAseq obtenu, les assemblages sont aligné avec un fichier d'annotation des protéines du genome de référence (70-15). Pour cela l'outil Exonerate est utilisé. Le fichier d'alignement ainsi obtenu sera ensuite transformer en hints à l'aide de l'outil exonerate2hints.</p>
 
+###Hints protéique
+
+<p style="text-align:justify";>Dans cette deuxième étape, l'outil exonerate est utilisé pour aligner chaque assemblage avec le fichier protéique de référence. Du fichier de sortie de cet outil, un fichier hints est récupéré à l'aide du script perl exonerate2hints.</p>
+
+<p style="text-align:justify";>Une fois les deux fichier hints crées, les positions des introns des deux fichiers hints sont récupérés puis mergés ensemble.</p>
+
 #Lancement Braker
 
-<p style="text-align:justify";>Ensuite l'outil BRAKER est lancé avec comme espèce Magnaporthe oryzae. Une fois le job fini, le script recupSeqFromGFF.py est utilisé pour récupérer à partir du fichier GFF tous les transcripts dans un fichier fasta. Pour l'analyse du secretome un autre fichier fasta sera aussi généré contenant toutes les protéines issues des transcripts. Le fichier d'annotation gff3 est aussi récupéré. Les identifiants des gènes ont été modifiés afin d'homogénéiser la nomenclature avec la souche de référence. Les nouveaux identifiants seront de la forme suivante : </p>
-* [Nom de l'espèce(Mo ou Mg)]_[Nom de la souche]_v1_[Numero du gène]T[Numero du transcript]
+<p style="text-align:justify";>Ensuite l'outil BRAKER est lancé avec comme espèce Magnaporthe oryzae. Il prend en entrée, le fichier d'assemblage ainsi que le fichier hints_intron.gff crée précédement. Une fois le job fini, le script recupSeqFromGFF.py est utilisé pour récupérer à partir du fichier GFF tous les transcripts dans un fichier fasta. Pour l'analyse du secretome un autre fichier fasta sera aussi généré contenant toutes les protéines issues des transcripts. Le fichier d'annotation gff3 est aussi récupéré. Les identifiants des gènes ont été modifiés afin d'homogénéiser la nomenclature avec la souche de référence. Les nouveaux identifiants seront de la forme suivante : </p>
+* Gene : [Nom de l'espèce(Mo ou Mg)]_[Nom de la souche]_v1_[Numero du gène]
+* Transcript : [Nom de l'espèce(Mo ou Mg)]_[Nom de la souche]_v1_[Numero du gène]T[Numero du transcript]
+* Protéine : [Nom de l'espèce(Mo ou Mg)]_[Nom de la souche]_v1_[Numero du gène]P[Numero du transcript d'où provient la protéine]
 
 
 

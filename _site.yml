@@ -20,6 +20,8 @@ navbar:
       href: comparaison_assemblage.html
     - text: Annotation
       href: Annotation.html
+    - text: Prédiction du sécrétome
+      href: Secretome.html
   - text: Présentation
     icon: ion-easel
     menu:
