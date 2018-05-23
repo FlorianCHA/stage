@@ -1,0 +1,144 @@
+---
+title: "Visulaisation de la qualité des assemblages issue de la littérature"
+author: "CHARRIAT Florian"
+date: "20 mars 2018"
+output:
+  html_document:
+    code_folding: hide
+    fig_caption: yes
+    highlight: zenburn
+    theme: cerulean
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+---
+```{r knitr setup, include=FALSE,  eval=TRUE, echo=FALSE, warning=FALSE}
+# knitr::opts_chunk$set(echo=TRUE, eval=TRUE, cache=TRUE, message=FALSE, warning=FALSE, comment="")
+
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, 
+  fig.height = 5, 
+  fig.align = "center", 
+  size = "tiny", 
+  echo = TRUE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+```{r Package , echo=FALSE}
+if(!require("knitr"))
+  {
+  install.packages('knitr')
+}
+if(!require("DT"))
+  {
+  install.packages('DT')
+  }
+library('knitr')
+library('DT')
+```
+
+
+#Traitement des données
+
+<p style="text-align:justify";>Les données sont importées dans R afin de pouvoir ensuite les traiter.</p>
+```{r Importation des données}
+dataQuality <-c()
+WD <- '/home/charriat/Documents/stage/StatQuality'
+file.quality <- file.path(WD,'QualityMbio.txt')
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+
+dataQ[,11] <- idSouche
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+```
+
+
+#Visualisation des données
+
+
+##Données qualité 
+```{R Visualisation des données brut}
+datatable(dataQuality, caption =" Tableau n°1: Tableau des statistiques de qualité de tous les assemblages",colnames = c('Id', colnames(dataQuality)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) 
+```
+
+&nbsp;
+
+
+#Visualisation des graph
+
+###Graph N50 générale
+
+```{r plot N50 général}
+x.kmère <- c()
+for (i in 1:(nrow(dataQ)))
+{
+  x.kmère <- c(x.kmère,rep(i))
+}
+select.kmère <- c()
+N50max <- 25000 # Selection des assemblage avec un N50 supérieur à 25 000
+
+plot(x = x.kmère, y = dataQ$N50, ylab ='N50',xlab = 'souche',xaxt="n",main ='Graphique n°1 : Assemblage de chaque souche en fonction du N50', cex = 0.3)
+
+axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
+abline(h=N50max,col="red")
+```
+
+###Graph N50 zoom
+
+```{r plot N50 zoom}
+x.kmère <- c()
+for (i in 1:(nrow(dataQ)))
+{
+  x.kmère <- c(x.kmère,rep(i))
+}
+select.kmère <- c()
+N50max <- 25000 # Selection des assemblage avec un N50 supérieur à 25 000
+
+plot(x = x.kmère, y = dataQ$N50, ylab ='N50',xlab = 'souche',xaxt="n" ,ylim=c(100,250000) ,main ='Graphique n°1 : Assemblage de chaque souche en fonction du N50', cex = 0.3)
+
+axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
+abline(h=N50max,col="red")
+```
+
+###Graph L50
+```{r plot L50}
+plot(x = x.kmère , y = dataQuality$L50, ylab ='L50', xlab = 'souche', xaxt="n" , main ='Graphique n°2 : Assemblage de chaque souche en fonction du L50', cex = 0.1)
+axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
+
+```
+
+###Graph E-size
+```{r plot E-size}
+plot(x = x.kmère, y = dataQuality$E.size,ylab ='E.size',xlab = 'souche',xaxt="n", main ="Graphique n°3 : Assemblage de chaque souche en fonction de l'E-size", cex = 0.3)
+axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
+
+```
+
+###Graph Longueur max
+```{r plot longuer max du contigs }
+plot(x = x.kmère, y = dataQuality$max,ylab ='max',xlab = 'souche', xaxt="n" , main ='Graphique n°4 : Assemblage de chaque souche en fonction de la longueur max des contigs', cex = 0.3)
+axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
+
+
+```
+
+###Graph n:500
+```{r plot n500 avant selection kmere}
+plot(x = x.kmère, y = dataQuality$n.500,ylab ='n.500',xlab = 'souche', xaxt="n" , main ='Graphique n°5 : Assemblage de chaque souche en fonction du nombre de contigs supérieur à 500', cex = 0.3)
+axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
+
+
+```

@@ -14,6 +14,8 @@ navbar:
       href: assembleSoucheAdel.html
     - text: Visualisation de la qualité de tout les assemblages
       href: allAssemblage.html
+    - text: Visulaisation de la qualité des assemblages issue de la littérature
+      href: rapportMbio.html
     - text: Masquer les éléments répétés
       href: repeatMasquer.html
     - text: Choix du meilleurs Assemblages

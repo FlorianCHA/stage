@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="CHARRIAT Florian" />
+
+
+<title>Visulaisation de la qualité des assemblages issue de la littérature</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/htmlwidgets-1.0/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.4/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.10.16/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.10.16/pdfmake.min.js"></script>
+<script src="site_libs/pdfmake-1.10.16/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.10.16/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.10.16/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.flash.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Rapport Florian</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="info.html">
+    <span class="fa fa-info"></span>
+     
+    Information
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Rapport
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rapport30.html">Assemblages des souches terrasses</a>
+    </li>
+    <li>
+      <a href="assembleSoucheAdel.html">Assemblages des souches d'Adel</a>
+    </li>
+    <li>
+      <a href="allAssemblage.html">Visualisation de la qualité de tout les assemblages</a>
+    </li>
+    <li>
+      <a href="rapportMbio.html">Visulaisation de la qualité des assemblages issue de la littérature</a>
+    </li>
+    <li>
+      <a href="repeatMasquer.html">Masquer les éléments répétés</a>
+    </li>
+    <li>
+      <a href="comparaison_assemblage.html">Choix du meilleurs Assemblages</a>
+    </li>
+    <li>
+      <a href="Annotation.html">Annotation</a>
+    </li>
+    <li>
+      <a href="Secretome.html">Prédiction du sécrétome</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-easel"></span>
+     
+    Présentation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Presentation/presentation_03_04_2018.html">Presentation du 3 avril 2018</a>
+    </li>
+    <li>
+      <a href="Presentation/presentation_17_04_2018.html">Presentation du 17 avril 2018</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="biblio.html">
+    <span class="fa fa-book"></span>
+     
+    Bibliographie
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-cube"></span>
+     
+    App
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://floriancha.shinyapps.io/Open_file_with_R/">File Visualizer</a>
+    </li>
+    <li>
+      <a href="https://floriancha.shinyapps.io/Open_File_with_R_v2/">File Visualizer v2</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">
+    <span class="fa fa-info-circle"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Visulaisation de la qualité des assemblages issue de la littérature</h1>
+<h4 class="author"><em>CHARRIAT Florian</em></h4>
+<h4 class="date"><em>20 mars 2018</em></h4>
+
+</div>
+
+
+<div id="traitement-des-donnees" class="section level1">
+<h1>Traitement des données</h1>
+<p style="text-align:justify" ;>
+Les données sont importées dans R afin de pouvoir ensuite les traiter.
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataQuality &lt;-<span class="kw">c</span>()
+WD &lt;-<span class="st"> &#39;/home/charriat/Documents/stage/StatQuality&#39;</span>
+file.quality &lt;-<span class="st"> </span><span class="kw">file.path</span>(WD,<span class="st">&#39;QualityMbio.txt&#39;</span>)
+dataQ &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file.quality, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+idS &lt;-<span class="st"> </span><span class="kw">c</span>()
+idSouche &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dataQ))
+{
+  idS&lt;-<span class="st"> </span><span class="kw">toString</span>(dataQ[i,<span class="dv">11</span>])
+  idSouche &lt;-<span class="st"> </span><span class="kw">c</span>(idSouche,<span class="kw">substr</span>(idS,<span class="dv">0</span>,<span class="dv">9</span>))
+}
+
+dataQ[,<span class="dv">11</span>] &lt;-<span class="st"> </span>idSouche
+dataQuality &lt;-dataQ[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]
+<span class="kw">rownames</span>(dataQuality) &lt;-<span class="st"> </span>idSouche</code></pre></div>
+</div>
+<div id="visualisation-des-donnees" class="section level1">
+<h1>Visualisation des données</h1>
+<div id="donnees-qualite" class="section level2">
+<h2>Données qualité</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">datatable</span>(dataQuality, <span class="dt">caption =</span><span class="st">&quot; Tableau n°1: Tableau des statistiques de qualité de tous les assemblages&quot;</span>,<span class="dt">colnames =</span> <span class="kw">c</span>(<span class="st">&#39;Id&#39;</span>, <span class="kw">colnames</span>(dataQuality)),<span class="dt">extensions =</span> <span class="st">&#39;Buttons&#39;</span>, <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;Blfrtip&#39;</span>,<span class="dt">buttons =</span> <span class="kw">c</span>(<span class="st">&#39;copy&#39;</span>, <span class="st">&#39;csv&#39;</span>, <span class="st">&#39;excel&#39;</span>, <span class="st">&#39;pdf&#39;</span>, <span class="st">&#39;print&#39;</span>))) </code></pre></div>
+<div id="htmlwidget-41035422010a9c0a2bff" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-41035422010a9c0a2bff">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°1: Tableau des statistiques de qualité de tous les assemblages<\/caption>","data":[["INA168","TH3","SSFL14-3","B51","GFSI1-7-2","PY5003","Br48","PY6025","Br62","Pm1","Br130","WBKY11","BR29","Bd8401","CHW","IE1K","P28","IC17","PY86-1","PY36-1","PY5010","US0071","HO","P3","EI9411","KANSV1-4-","PgKY","PY6045","GY11","SSFL02","B71","SA05-43","PL2-1","IA1","GRF52","Y34","LpKY97","SV9623","PH42","IB49","ML33","Dig41","Br7","Z2-1","98-06","P131","PH0014-rn","PGPA","EI9604","G17","FR13","87-120","IB33","BR0032","BdBar","CHRF","PY6017","CD0156","DsLIZ","FH","Br80","SA05-144","BdMeh","TH0016","SV9610","BdJes","T25","Bm88324","WHTQ","V0107","PY5033","B2","GG11","Ken53-33","PL3-1","Arcadia","TF05-1","TH0012-rn","P29","PY0925","Pg1213-22","Br58","G22","P-2"],[1811,9687,2638,2390,1910,2565,2082,64347,2317,4091,2436,115,16,2901,790,1722,1665,2438,3209,740,2290,220,1760,833,1661,10061,3858,1671,1964,1277,667,11994,811,2257,3606,1198,5572,1514,1673,2076,3439,3970,1215,2048,284,1822,711,3403,1346,1803,2051,2714,1589,111,6205,889,1654,237,1508,2346,724,31922,1365,171,1546,3007,1277,1732,3094,33028,2012,2491,1463,7987,1949,1399,1720,940,1472,2191,1390,2057,2460,6787],[1810,8322,1751,2390,1908,1676,2082,31772,1332,2377,2435,115,16,1559,790,1225,1102,2438,1282,397,962,220,1143,833,1656,7842,1967,898,1964,1277,667,9163,811,2257,1374,1198,3608,1513,1673,2076,2134,3968,1215,2048,284,1822,711,1681,1344,1350,2051,1390,1589,111,3796,889,757,237,1508,1693,724,19631,1365,171,1544,3007,1277,1087,3092,3233,1005,2102,1023,5980,1456,1399,1238,940,980,820,1390,2053,1783,5029],[128,1452,168,411,125,213,121,16027,88,207,265,5,6,56,93,79,47,392,71,47,59,12,84,87,137,1197,141,66,60,169,67,1552,79,358,102,92,335,78,250,309,120,509,166,173,10,159,20,71,116,113,124,64,202,7,343,84,47,13,227,207,78,5540,170,11,70,571,210,43,306,411,61,288,97,785,171,181,121,21,52,56,165,119,160,594],[500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500],[22533,2881,24900,12332,29866,25810,30181,431,47619,19640,18727,964958,1126513,65409,52207,27201,68827,11401,63173,116558,73335,189768,47118,51057,29305,3215,32385,73917,23706,28702,67266,2579,50715,12545,36231,27710,13178,49778,21276,14303,21424,10005,32441,25322,300936,21994,158106,47734,38777,40829,25027,44486,18823,629663,12841,47348,100124,362046,24690,27736,58053,868,26871,254700,47278,9120,29171,78995,13706,10066,75844,19499,42179,4498,31398,22984,37434,44331,83588,81855,28697,31341,26741,5576],[75886,7034,72801,27865,88519,62930,97014,814,141061,63795,47088,3962041,1625795,204898,120224,127734,218204,28200,167541,272947,204456,813981,123633,138921,81416,8523,89888,184726,187276,71208,181707,6778,141200,30490,105252,106863,35955,145603,50217,37864,83862,24063,74276,64080,1530397,62822,697115,155029,100075,105667,101645,161911,53069,1760460,35256,134224,261084,1066457,60910,61997,134171,2008,68617,938544,154236,20309,62883,267242,37555,31142,181875,46715,114865,12612,72795,62325,104709,590463,232896,208439,79461,91276,72869,16224],[183877,14175,155736,54286,191376,106714,206346,1468,264563,138369,84748,5497615,2515496,446141,254330,297522,612082,53859,346593,499125,422346,2923703,322088,264224,168993,18487,180852,394005,556686,138121,410105,13777,303736,60886,238957,272116,73278,297475,95898,71670,205617,48178,146622,138342,2329954,144057,2025323,378242,214057,214011,205760,417379,109623,4391730,73775,287447,553654,1912116,112355,118980,348737,3953,151850,1977323,315634,39181,113360,507540,80974,60143,421604,81433,253694,27991,142376,139998,203933,1560965,479846,447203,141217,198526,158590,37772],[108778,9213,92073,35360,113597,74864,121507,1033,177399,84310,54675,3658792,1664034,267642,159223,175827,416479,35807,240988,339042,264221,1242610,222618,181118,111316,11703,107275,240613,294033,86490,235291,8918,232761,39280,141208,150459,46150,179272,62254,46394,121123,30353,90946,84848,1441269,91184,924050,229422,133707,136026,123244,215817,70935,2160658,46016,189570,343427,1149990,73139,76205,255311,2586,88018,1186259,212724,25569,74163,371025,52724,38273,268137,54185,173318,18164,93851,83270,135534,775519,321357,314929,89133,130263,95661,22747],[400585,48311,323986,156141,393777,330048,476436,20244,665316,410669,208622,6783147,2523387,1076705,587934,621508,1778806,193775,1159164,1123756,881373,3113975,1431250,906733,501659,69768,384410,1082052,1102691,347231,823909,62709,1483421,188050,505245,708350,196461,585182,228111,313329,627475,149066,331884,371027,3511474,459401,2495708,937392,472660,564916,557675,620948,280346,4783357,227268,927143,1185762,2814965,308435,262988,1643104,20665,257108,3133578,948369,125452,269925,1679996,292920,212535,1214743,219930,966222,103689,413171,303158,703161,2302051,1188465,1607382,310331,641189,390726,105622],[38122422,35382215,42715770,38908646,39152295,42727676,40783269,42113116,42951273,47701690,40014084,43381641,22834969,41269396,40418923,39603376,43582558,37809379,43594932,42166263,42821371,41206925,43035775,41631577,40306145,37014292,42094423,42459583,46326187,40269483,43067233,36922728,42551839,37559418,39910600,38872417,42494433,39376824,42256740,38214410,39494099,41519068,41336942,39609439,42306689,37955031,49819876,42669742,41601338,41186569,43065003,39290202,38573393,41858488,42808240,41693228,43103128,42691742,44435812,42973384,42345624,37894689,41292141,39126391,39325514,38930738,42297954,41379780,42249780,43299204,42778215,42489196,42565249,36918208,42519598,40595029,43536331,48539267,43272941,43095444,41150008,40301183,41423750,36656921]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>n<\/th>\n      <th>n.500<\/th>\n      <th>L50<\/th>\n      <th>min<\/th>\n      <th>N80<\/th>\n      <th>N50<\/th>\n      <th>N20<\/th>\n      <th>E.size<\/th>\n      <th>max<\/th>\n      <th>sum<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p> </p>
+</div>
+</div>
+<div id="visualisation-des-graph" class="section level1">
+<h1>Visualisation des graph</h1>
+<div id="graph-n50-generale" class="section level3">
+<h3>Graph N50 générale</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.kmère &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(<span class="kw">nrow</span>(dataQ)))
+{
+  x.kmère &lt;-<span class="st"> </span><span class="kw">c</span>(x.kmère,<span class="kw">rep</span>(i))
+}
+select.kmère &lt;-<span class="st"> </span><span class="kw">c</span>()
+N50max &lt;-<span class="st"> </span><span class="dv">25000</span> <span class="co"># Selection des assemblage avec un N50 supérieur à 25 000</span>
+
+<span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQ<span class="op">$</span>N50, <span class="dt">ylab =</span><span class="st">&#39;N50&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>,<span class="dt">main =</span><span class="st">&#39;Graphique n°1 : Assemblage de chaque souche en fonction du N50&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dataQ<span class="op">$</span>name), <span class="dt">labels =</span> dataQ<span class="op">$</span>name, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span>N50max,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="rapportMbio_files/figure-html/plot%20N50%20g%C3%A9n%C3%A9ral-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-n50-zoom" class="section level3">
+<h3>Graph N50 zoom</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.kmère &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(<span class="kw">nrow</span>(dataQ)))
+{
+  x.kmère &lt;-<span class="st"> </span><span class="kw">c</span>(x.kmère,<span class="kw">rep</span>(i))
+}
+select.kmère &lt;-<span class="st"> </span><span class="kw">c</span>()
+N50max &lt;-<span class="st"> </span><span class="dv">25000</span> <span class="co"># Selection des assemblage avec un N50 supérieur à 25 000</span>
+
+<span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQ<span class="op">$</span>N50, <span class="dt">ylab =</span><span class="st">&#39;N50&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> ,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">100</span>,<span class="dv">250000</span>) ,<span class="dt">main =</span><span class="st">&#39;Graphique n°1 : Assemblage de chaque souche en fonction du N50&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dataQ<span class="op">$</span>name), <span class="dt">labels =</span> dataQ<span class="op">$</span>name, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span>N50max,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="rapportMbio_files/figure-html/plot%20N50%20zoom-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-l50" class="section level3">
+<h3>Graph L50</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère , <span class="dt">y =</span> dataQuality<span class="op">$</span>L50, <span class="dt">ylab =</span><span class="st">&#39;L50&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°2 : Assemblage de chaque souche en fonction du L50&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.1</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dataQ<span class="op">$</span>name), <span class="dt">labels =</span> dataQ<span class="op">$</span>name, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="rapportMbio_files/figure-html/plot%20L50-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-e-size" class="section level3">
+<h3>Graph E-size</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQuality<span class="op">$</span>E.size,<span class="dt">ylab =</span><span class="st">&#39;E.size&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="dt">main =</span><span class="st">&quot;Graphique n°3 : Assemblage de chaque souche en fonction de l&#39;E-size&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dataQ<span class="op">$</span>name), <span class="dt">labels =</span> dataQ<span class="op">$</span>name, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="rapportMbio_files/figure-html/plot%20E-size-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-longueur-max" class="section level3">
+<h3>Graph Longueur max</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQuality<span class="op">$</span>max,<span class="dt">ylab =</span><span class="st">&#39;max&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°4 : Assemblage de chaque souche en fonction de la longueur max des contigs&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dataQ<span class="op">$</span>name), <span class="dt">labels =</span> dataQ<span class="op">$</span>name, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="rapportMbio_files/figure-html/plot%20longuer%20max%20du%20contigs-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-n500" class="section level3">
+<h3>Graph n:500</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQuality<span class="op">$</span>n.<span class="dv">500</span>,<span class="dt">ylab =</span><span class="st">&#39;n.500&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°5 : Assemblage de chaque souche en fonction du nombre de contigs supérieur à 500&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dataQ<span class="op">$</span>name), <span class="dt">labels =</span> dataQ<span class="op">$</span>name, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="rapportMbio_files/figure-html/plot%20n500%20avant%20selection%20kmere-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
