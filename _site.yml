@@ -37,8 +37,6 @@ navbar:
   - text: "App"
     icon: ion-cube
     menu:
-    - text: 'File Visualizer'
-      href: 'https://floriancha.shinyapps.io/Open_file_with_R/'
     - text: 'File Visualizer v2'
       href: 'https://floriancha.shinyapps.io/Open_File_with_R_v2/'
   right:
