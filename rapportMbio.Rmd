@@ -47,6 +47,7 @@ library('DT')
 #Traitement des données
 
 <p style="text-align:justify";>Les données sont importées dans R afin de pouvoir ensuite les traiter.</p>
+
 ```{r Importation des données}
 dataQuality <-c()
 WD <- '/home/charriat/Documents/stage/StatQuality'
@@ -70,6 +71,8 @@ rownames(dataQuality) <- idSouche
 
 
 ##Données qualité 
+
+Ici le tableau montre les données qualités récupéré à l'aide du script <a href='https://floriancha.github.io/Script/index.html' target='_blank'>QualityAssemblage</a>.
 ```{R Visualisation des données brut}
 datatable(dataQuality, caption =" Tableau n°1: Tableau des statistiques de qualité de tous les assemblages",colnames = c('Id', colnames(dataQuality)),extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) 
 ```
@@ -79,7 +82,11 @@ datatable(dataQuality, caption =" Tableau n°1: Tableau des statistiques de qual
 
 #Visualisation des graph
 
+Les données sont ensuite comme visualisées à l'aide de différent graphique.
+
 ###Graph N50 générale
+
+<p style="text-align:justify";>Dans un premier temps on visualise le N50 de chaque souche. On constate qu'il y a de grande différence de N50 entre les différentes souches. C'est pour cela qu'un autre graphique est crée afin de visualiser les plus petites valeurs de N50.</p>
 
 ```{r plot N50 général}
 x.kmère <- c()
@@ -114,6 +121,7 @@ abline(h=N50max,col="red")
 ```
 
 ###Graph L50
+
 ```{r plot L50}
 plot(x = x.kmère , y = dataQuality$L50, ylab ='L50', xlab = 'souche', xaxt="n" , main ='Graphique n°2 : Assemblage de chaque souche en fonction du L50', cex = 0.1)
 axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
@@ -121,6 +129,7 @@ axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis =
 ```
 
 ###Graph E-size
+
 ```{r plot E-size}
 plot(x = x.kmère, y = dataQuality$E.size,ylab ='E.size',xlab = 'souche',xaxt="n", main ="Graphique n°3 : Assemblage de chaque souche en fonction de l'E-size", cex = 0.3)
 axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
