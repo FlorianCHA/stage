@@ -5,7 +5,7 @@ date: "<p align='center'>01 juin 2018</p>"
 output:
   slidy_presentation:
     footer : "<a href='https://floriancha.github.io/stage/'>Retour au site</a> &nbsp; <a href='PresentationCBS.pdf'
-   download='presentation_03_04_2018.pdf'>Télécharger le diapo</a>"
+   download='Presentation_CBS.pdf'>Télécharger le diapo</a>"
     highlight: zenburn
     incremental: yes
     theme: cerulean
