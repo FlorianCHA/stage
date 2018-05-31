@@ -186,7 +186,7 @@ allData <- rbind(dataTerrasses,dataAdel,dataL)
 ```{r Barplot proportion hôte}
 library(ggplot2)
 pie <- ggplot(allData, aes(x=hôte, fill=hôte))+
-  geom_bar(width = 1, stat='count') +  theme(axis.text.x = element_blank(), axis.ticks = element_blank()) +labs(x='Hôte')
+  geom_bar(width = 1, stat='count') +  theme(axis.text.x = element_blank(), axis.ticks = element_blank()) +labs(x='Hôtes', fill ="Hôtes")
 pie <- pie +geom_text(stat = 'count',aes(label=..count..), vjust=-0.3, size=3.5)
 pie
 ```
