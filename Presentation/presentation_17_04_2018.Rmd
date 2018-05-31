@@ -103,7 +103,7 @@ knitr::opts_chunk$set(
 ![](OutilsvsEffecteur.png)
 
 
-<span style="line-height:4pt;font-size: 10pt";>Tableau 2: Sensitivity of secretion prediction tools for secreted fungal proteins, fungal effectors, and oomycete effectors. Table issue de *Evaluation of secretion prediction highlights differing approaches needed for oomycete and fungal effectors* [1]</span>
+<span style="line-height:4pt;font-size: 10pt";>Tableau 2: Sensitivity of secretion prediction tools for secreted fungal proteins, fungal effectors, and oomycete effectors. Table issue de *Evaluation of secretion prediction highlights differing approaches needed> for oomycete and fungal effectors* [1]</span>
 
 &nbsp;
 

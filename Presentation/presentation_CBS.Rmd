@@ -1,0 +1,208 @@
+---
+title: "<h1 align='center'><font size='+7'>Présentation des données</font></h1>" 
+author: "<p align='center'>Florian CHARRIAT</p>"
+date: "<p align='center'>01 juin 2018</p>"
+output:
+  slidy_presentation:
+    footer : "<a href='https://floriancha.github.io/stage/'>Retour au site</a> &nbsp; <a href='PresentationCBS.pdf'
+   download='presentation_03_04_2018.pdf'>Télécharger le diapo</a>"
+    highlight: zenburn
+    incremental: yes
+    theme: cerulean
+    fig_caption: true
+    font_adjustment: -1
+  beamer_presentation:
+    highlight: zenburn
+    incremental: yes
+---
+
+
+```{r include=FALSE, echo=FALSE, eval=TRUE}
+library(knitr)
+options(width=300)
+knitr::opts_chunk$set(
+  fig.width = 10, fig.height = 6, 
+  fig.path='figures',
+  fig.align = "center", 
+  size = "tiny", 
+  echo = FALSE, eval=TRUE, 
+  warning = FALSE, message = FALSE, 
+  results = TRUE, comment = "")
+# knitr::asis_output("\\footnotesize")
+
+```
+
+
+#Schéma global
+
+&nbsp;
+
+<center>![](schemaCBS.png)</center>
+
+#Les souches assemblées
+
+>>- Magnaporthe oryzae
+>>- Magnaporthe grisea (hôte : Digitaria)
+>>- Pyricularia pennisetigena (hôte : Pennisetum)
+
+```{r data Terrasses, echo=FALSE}
+############################ Assemblage terrasses ###########################################
+dataQuality <-c()
+WD <- '/home/charriat/Documents/stage/StatQuality'
+file.quality <- file.path(WD,'QualityR_terrasses')
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+kmère <- c(20,30,40,50,60,70,80,90)
+Id <- c()
+j <- 1
+N50 <- data.frame(matrix(NA,ncol=length(kmère),nrow = (nrow(dataQuality)/8)))
+for (i in 1:(nrow(dataQuality)/8))
+{
+  Ids <- rownames(dataQuality[i*8,])
+  Id <- c(Id,substr(Ids,0,6))
+  N50[i,] <- dataQuality[j:(i*8),6]
+  j <- i*8+1
+}
+rownames(N50) <- Id
+colnames(N50) <- kmère
+selection <- data.frame(matrix(NA,ncol= ncol(dataQuality) ,nrow = (nrow(dataQuality)/8)))
+id.select <- c()
+for (i in 1:nrow(N50))
+{
+  bestKmer <- colnames(N50[i,])[which(N50[i,] == max(N50[i,]), arr.ind = TRUE)[2]]
+  newId <- paste(rownames(N50[i,]),toString(bestKmer),sep = '_')
+  id.select <- c(id.select,newId)
+  selection[i,] <-  dataQuality[rownames(dataQuality) ==newId,]
+}
+colnames(selection) <- colnames(dataQuality)
+rownames(selection) <- id.select
+select <- selection$N50 >= 25000
+unSelect <- selection$N50 < 25000
+dataSelect <- rownames(selection[select,])
+dataUnSelect <- rownames(selection[unSelect,])
+projet = c()
+statut = c()
+hôte = c()
+organisme = c()
+groupeSelect <- c('terrasse_c','terrasse_c','terrasse_c','terrasse_b','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_b','1','terrasse_c','terrasse_c','1','terrasse_c','3','terrasse_c','terrasse_c','terrasse_c','3','terrasse_c','terrasse_c','3','terrasse_c','terrasse_c','5','a','terrasse_c','terrasse_b','3','terrasse_c','terrasse_c','terrasse_c','terrasse_a','terrasse_a','1','terrasse_a','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_c','terrasse_c','3','terrasse_c','terrasse_c','terrasse_c','terrasse_c')
+groupeUnSelect <- c('3','NA','3','3','2','4','2','NA','1','1',' 1','1','4','3','2','3','1','1')
+for (i in 1:length(dataSelect))
+{
+  statut = c(statut,'Sélectionné')
+  hôte = c(hôte,'Rice')
+  organisme = c(organisme,'Magnaporthe oryzae')
+  projet = c(projet,"<a href='rapport30.html' target='_blank'>Assemblage souche terrasses</a'>")
+}
+
+dataTerrasses <- data.frame(projet,hôte,organisme,statut)
+rownames(dataTerrasses) <- c(dataSelect)
+```
+
+```{r Data Adel, echo = FALSE}
+############################ Assemblage souche Adel ###########################################
+dataQuality <-c()
+file.quality <- file.path(WD,'QualityR_Adel')
+dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
+idS <- c()
+idSouche <- c()
+for (i in 1:nrow(dataQ))
+{
+  idS<- toString(dataQ[i,11])
+  idSouche <- c(idSouche,substr(idS,0,9))
+}
+
+dataQ[,11] <- idSouche
+dataQuality <-dataQ[,1:10]
+rownames(dataQuality) <- idSouche
+
+kmère <- c(20,30,40,50,60,70,80,90)
+Id <- c()
+j <- 1
+N50 <- data.frame(matrix(NA,ncol=length(kmère),nrow = (nrow(dataQuality)/8)))
+for (i in 1:(nrow(dataQuality)/8))
+{
+  Ids <- rownames(dataQuality[i*8,])
+  Id <- c(Id,substr(Ids,0,6))
+  N50[i,] <- dataQuality[j:(i*8),6]
+  j <- i*8+1
+}
+rownames(N50) <- Id
+colnames(N50) <- kmère
+selection <- data.frame(matrix(NA,ncol= ncol(dataQuality) ,nrow = (nrow(dataQuality)/8)))
+id.select <- c()
+for (i in 1:nrow(N50))
+{
+  bestKmer <- colnames(N50[i,])[which(N50[i,] == max(N50[i,]), arr.ind = TRUE)[2]]
+  newId <- paste(rownames(N50[i,]),toString(bestKmer),sep = '_')
+  id.select <- c(id.select,newId)
+  selection[i,] <-  dataQuality[rownames(dataQuality) == newId,]
+
+}
+colnames(selection) <- colnames(dataQuality)
+rownames(selection) <- id.select
+
+select <- selection$N50 >= 25000
+unSelect <- selection$N50 < 25000
+dataSelect <- rownames(selection[select,])
+dataUnSelect <- rownames(selection[unSelect,])
+projet = c()
+organisme = c()
+hôte = c('Rice','Rice','Lolium','Lolium','Mais','Rice','Mais','Mais','Mais','Echinichola','Echinichola','Echinichola','Mais','Rice','Setaria','Rice','Rice','Rice','Setaria')
+statut = c()
+for (i in 1:length(dataSelect))
+{
+  organisme = c(organisme,'Magnaporthe oryzae')
+  statut = c(statut,'Sélectionné')
+  projet = c(projet,"<a href='assembleSoucheAdel.html' target='_blank'>Assemblage souche Adel</a'>")
+}
+
+dataAdel <- data.frame(projet,hôte,organisme,statut)
+rownames(dataAdel) <- dataSelect
+```
+
+```{r data litterature,echo = FALSE}
+wd <- '/home/charriat/Documents/stage/data'
+file.literrature <- file.path(wd,'data-literrature_camenbert.txt')
+dataL <- read.table(file=file.literrature, sep="\t", header=TRUE)
+rownames(dataL) <- dataL$id
+organisme <- c(rep('Magnaporthe oryzae',76),'Pyricularia pennisetigena',rep('Magnaporthe grisea',4))
+dataL <- data.frame(dataL[,2:3],organisme,dataL$statut)
+colnames(dataL) <- c('projet','hôte','organisme','statut')
+```
+
+```{r allData, echo=FALSE}
+####################### Toute les données ###########################
+allData <- rbind(dataTerrasses,dataAdel,dataL)
+```
+
+```{r Barplot proportion hôte}
+library(ggplot2)
+pie <- ggplot(allData, aes(x=hôte, fill=hôte))+
+  geom_bar(width = 1, stat='count') +  theme(axis.text.x = element_blank(), axis.ticks = element_blank()) +labs(x='Hôte')
+pie <- pie +geom_text(stat = 'count',aes(label=..count..), vjust=-0.3, size=3.5)
+pie
+```
+<center><span style="line-height:4pt;font-size: 10pt";>Graphique1 : Représentation de la proportion des hôtes infectés</span></center>
+
+#Pipeline de prédiction du secretome
+
+&nbsp;
+
+<center>![](SchemaCBS2.png)</center>
+
+
+
+
+
+
+
+
+

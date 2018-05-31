@@ -31,6 +31,8 @@ navbar:
       href: Presentation/presentation_03_04_2018.html
     - text: Presentation du 17 avril 2018
       href: Presentation/presentation_17_04_2018.html
+    - text: Présentation au CBS du 1 juin 2018
+      href: presentation_CBS.html
   - text: "Bibliographie"
     icon: fa-book
     href: biblio.html
