@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="CHARRIAT Florian" />
+
+
+<title>Qualité des Assemblages des 30 dernières souches du projet MagMax</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.4/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.10.16/jszip.min.js"></script>
+<script src="site_libs/pdfmake-1.10.16/pdfmake.min.js"></script>
+<script src="site_libs/pdfmake-1.10.16/vfs_fonts.js"></script>
+<link href="site_libs/dt-ext-buttons-1.10.16/css/buttons.dataTables.min.css" rel="stylesheet" />
+<script src="site_libs/dt-ext-buttons-1.10.16/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.flash.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #303030; color: #cccccc; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
+td.sourceCode { padding-left: 5px; }
+pre, code { color: #cccccc; background-color: #303030; }
+code > span.kw { color: #f0dfaf; } /* Keyword */
+code > span.dt { color: #dfdfbf; } /* DataType */
+code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #c0bed1; } /* Float */
+code > span.ch { color: #dca3a3; } /* Char */
+code > span.st { color: #cc9393; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #efef8f; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #dca3a3; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.op { color: #f0efd0; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Rapport Florian</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="info.html">
+    <span class="fa fa-info"></span>
+     
+    Information
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-folder-open"></span>
+     
+    Rapport
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="rapport30.html">Assemblages des souches terrasses</a>
+    </li>
+    <li>
+      <a href="assembleSoucheAdel.html">Assemblages des souches d'Adel</a>
+    </li>
+    <li>
+      <a href="allAssemblage.html">Visualisation de la qualité de tout les assemblages</a>
+    </li>
+    <li>
+      <a href="rapportMbio.html">Visulaisation de la qualité des assemblages issue de la littérature</a>
+    </li>
+    <li>
+      <a href="repeatMasquer.html">Masquer les éléments répétés</a>
+    </li>
+    <li>
+      <a href="comparaison_assemblage.html">Choix du meilleurs Assemblages</a>
+    </li>
+    <li>
+      <a href="Annotation.html">Annotation</a>
+    </li>
+    <li>
+      <a href="Secretome.html">Prédiction du sécrétome</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-easel"></span>
+     
+    Présentation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Presentation/presentation_03_04_2018.html">Presentation du 3 avril 2018</a>
+    </li>
+    <li>
+      <a href="Presentation/presentation_17_04_2018.html">Presentation du 17 avril 2018</a>
+    </li>
+    <li>
+      <a href="Presentation/presentation_CBS.html">Présentation au CBS du 1 juin 2018</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="biblio.html">
+    <span class="fa fa-book"></span>
+     
+    Bibliographie
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="ion ion-cube"></span>
+     
+    App
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://floriancha.shinyapps.io/Open_File_with_R_v2/">File Visualizer v2</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">
+    <span class="fa fa-info-circle"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Qualité des Assemblages des 30 dernières souches du projet MagMax</h1>
+<h4 class="author"><em>CHARRIAT Florian</em></h4>
+<h4 class="date"><em>12 juin 2018</em></h4>
+
+</div>
+
+
+<p style="text-align:justify" ;>
+Dans un premier temps les 19 souches sont assemblées avec l’outil ABYSS <a href='biblio.html#assemblage1'>[4]</a> . Plusieurs assemblages sont effectués pour chaque souche avec différentes tailles de k-mère. Puis le meilleur assemblage de chaque souche est sélectionné. La sélection se fait après visualisation des données de qualité de chaque assemblage. Ces données qualités sont présentées dans la suite du rapport.
+</p>
+<p style="text-align:justify" ;>
+Les différrents assemblage ont été lancé avec le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">ABYSS_launch</a>. Les données qualités utilisées pour selectionner le meilleurs assemblage ont été récupéré avec le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">Qualtiy</a>
+</p>
+<div id="traitement-des-donnees" class="section level1">
+<h1>Traitement des données</h1>
+<p style="text-align:justify" ;>
+Les données sont importées dans R afin de pouvoir ensuite les traiter.
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dataQuality &lt;-<span class="kw">c</span>()
+WD &lt;-<span class="st"> &#39;/home/charriat/Documents/stage/StatQuality&#39;</span>
+file.quality &lt;-<span class="st"> </span><span class="kw">file.path</span>(WD,<span class="st">&#39;Quality_Toulouse&#39;</span>)
+dataQ &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file=</span>file.quality, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+idS &lt;-<span class="st"> </span><span class="kw">c</span>()
+idSouche &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dataQ))
+{
+  idS&lt;-<span class="st"> </span><span class="kw">toString</span>(dataQ[i,<span class="dv">11</span>])
+  idSouche &lt;-<span class="st"> </span><span class="kw">c</span>(idSouche,<span class="kw">substr</span>(idS,<span class="dv">0</span>,<span class="dv">9</span>))
+}
+
+dataQ[,<span class="dv">11</span>] &lt;-<span class="st"> </span>idSouche
+dataQuality &lt;-dataQ[,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]
+<span class="kw">rownames</span>(dataQuality) &lt;-<span class="st"> </span>idSouche</code></pre></div>
+<p style="text-align:justify" ;>
+Puis, les 280 assemblages sont traitées afin d’obtenir un tableau qui permettra de visualiser les différents N50 obtenus en fonction de la longueur du kmère.
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">kmère &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">80</span>,<span class="dv">90</span>)
+Id &lt;-<span class="st"> </span><span class="kw">c</span>()
+j &lt;-<span class="st"> </span><span class="dv">1</span>
+N50 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="ot">NA</span>,<span class="dt">ncol=</span><span class="kw">length</span>(kmère),<span class="dt">nrow =</span> (<span class="kw">nrow</span>(dataQuality)<span class="op">/</span><span class="dv">8</span>)))
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(<span class="kw">nrow</span>(dataQuality)<span class="op">/</span><span class="dv">8</span>))
+{
+  Ids &lt;-<span class="st"> </span><span class="kw">rownames</span>(dataQuality[i<span class="op">*</span><span class="dv">8</span>,])
+  Id &lt;-<span class="st"> </span><span class="kw">c</span>(Id,<span class="kw">substr</span>(Ids,<span class="dv">0</span>,<span class="dv">6</span>))
+  N50[i,] &lt;-<span class="st"> </span>dataQuality[j<span class="op">:</span>(i<span class="op">*</span><span class="dv">8</span>),<span class="dv">6</span>]
+  j &lt;-<span class="st"> </span>i<span class="op">*</span><span class="dv">8</span><span class="op">+</span><span class="dv">1</span>
+}
+<span class="kw">rownames</span>(N50) &lt;-<span class="st"> </span>Id
+<span class="kw">colnames</span>(N50) &lt;-<span class="st"> </span>kmère</code></pre></div>
+</div>
+<div id="visualisation-des-donnees" class="section level1">
+<h1>Visualisation des données</h1>
+<p style="text-align:justify" ;>
+Le tableau n°1 montre toutes les données statistiques de chaque assemblage. Dans ce tableau l’id est composé de l’identifiant de la souche suivit de la longueur du kmère utilisée pour l’assemblage. Le tableau n°2 montre les différents N50 obtenus de chaque souche en fonction de la longueur du kmère choisie pour l’assemblage.
+</p>
+<div id="donnees-qualite" class="section level2">
+<h2>Données qualité</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">datatable</span>(dataQuality, <span class="dt">caption =</span><span class="st">&quot; Tableau n°1: Tableau des statistiques de qualité de tous les assemblages&quot;</span>,<span class="dt">colnames =</span> <span class="kw">c</span>(<span class="st">&#39;Id&#39;</span>, <span class="kw">colnames</span>(dataQuality)),<span class="dt">extensions =</span> <span class="st">&#39;Buttons&#39;</span>, <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;Blfrtip&#39;</span>,<span class="dt">buttons =</span> <span class="kw">c</span>(<span class="st">&#39;copy&#39;</span>, <span class="st">&#39;csv&#39;</span>, <span class="st">&#39;excel&#39;</span>, <span class="st">&#39;pdf&#39;</span>, <span class="st">&#39;print&#39;</span>))) </code></pre></div>
+<div id="htmlwidget-e48932047416a457d107" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e48932047416a457d107">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°1: Tableau des statistiques de qualité de tous les assemblages<\/caption>","data":[["BF0072_20","BF0072_30","BF0072_40","BF0072_50","BF0072_60","BF0072_70","BF0072_80","BF0072_90","BN0019_20","BN0019_30","BN0019_40","BN0019_50","BN0019_60","BN0019_70","BN0019_80","BN0019_90","BN0119_20","BN0119_30","BN0119_40","BN0119_50","BN0119_60","BN0119_70","BN0119_80","BN0119_90","BN0123_20","BN0123_30","BN0123_40","BN0123_50","BN0123_60","BN0123_70","BN0123_80","BN0123_90","BN0202_20","BN0202_30","BN0202_40","BN0202_50","BN0202_60","BN0202_70","BN0202_80","BN0202_90","BN0252_20","BN0252_30","BN0252_40","BN0252_50","BN0252_60","BN0252_70","BN0252_80","BN0252_90","CD0065_20","CD0065_30","CD0065_40","CD0065_50","CD0065_60","CD0065_70","CD0065_80","CD0065_90","CD0142_20","CD0142_30","CD0142_40","CD0142_50","CD0142_60","CD0142_70","CD0142_80","CD0142_90","CH0043_20","CH0043_30","CH0043_40","CH0043_50","CH0043_60","CH0043_70","CH0043_80","CH0043_90","CH0072_20","CH0072_30","CH0072_40","CH0072_50","CH0072_60","CH0072_70","CH0072_80","CH0072_90","CH0452_20","CH0452_30","CH0452_40","CH0452_50","CH0452_60","CH0452_70","CH0452_80","CH0452_90","CH0461_20","CH0461_30","CH0461_40","CH0461_50","CH0461_60","CH0461_70","CH0461_80","CH0461_90","CH0533_20","CH0533_30","CH0533_40","CH0533_50","CH0533_60","CH0533_70","CH0533_80","CH0533_90","CH1103_20","CH1103_30","CH1103_40","CH1103_50","CH1103_60","CH1103_70","CH1103_80","CH1103_90","CH1164_20","CH1164_30","CH1164_40","CH1164_50","CH1164_60","CH1164_70","CH1164_80","CH1164_90","IN0017_20","IN0017_30","IN0017_40","IN0017_50","IN0017_60","IN0017_70","IN0017_80","IN0017_90","IN0054_20","IN0054_30","IN0054_40","IN0054_50","IN0054_60","IN0054_70","IN0054_80","IN0054_90","IN0059_20","IN0059_30","IN0059_40","IN0059_50","IN0059_60","IN0059_70","IN0059_80","IN0059_90","IN0114_20","IN0114_30","IN0114_40","IN0114_50","IN0114_60","IN0114_70","IN0114_80","IN0114_90","IN0115_20","IN0115_30","IN0115_40","IN0115_50","IN0115_60","IN0115_70","IN0115_80","IN0115_90","IN0116_20","IN0116_30","IN0116_40","IN0116_50","IN0116_60","IN0116_70","IN0116_80","IN0116_90","ML0062_20","ML0062_30","ML0062_40","ML0062_50","ML0062_60","ML0062_70","ML0062_80","ML0062_90","NG0012_20","NG0012_30","NG0012_40","NG0012_50","NG0012_60","NG0012_70","NG0012_80","NG0012_90","NG0054_20","NG0054_30","NG0054_40","NG0054_50","NG0054_60","NG0054_70","NG0054_80","NG0054_90","NP0058_20","NP0058_30","NP0058_40","NP0058_50","NP0058_60","NP0058_70","NP0058_80","NP0058_90","TG0004_20","TG0004_30","TG0004_40","TG0004_50","TG0004_60","TG0004_70","TG0004_80","TG0004_90","TG0032_20","TG0032_30","TG0032_40","TG0032_50","TG0032_60","TG0032_70","TG0032_80","TG0032_90","TN0001_20","TN0001_30","TN0001_40","TN0001_50","TN0001_60","TN0001_70","TN0001_80","TN0001_90","TN0002_20","TN0002_30","TN0002_40","TN0002_50","TN0002_60","TN0002_70","TN0002_80","TN0002_90","TN0057_20","TN0057_30","TN0057_40","TN0057_50","TN0057_60","TN0057_70","TN0057_80","TN0057_90","TN0065_20","TN0065_30","TN0065_40","TN0065_50","TN0065_60","TN0065_70","TN0065_80","TN0065_90","TN0090_20","TN0090_30","TN0090_40","TN0090_50","TN0090_60","TN0090_70","TN0090_80","TN0090_90","US0041_20","US0041_30","US0041_40","US0041_50","US0041_60","US0041_70","US0041_80","US0041_90","VT0027_20","VT0027_30","VT0027_40","VT0027_50","VT0027_60","VT0027_70","VT0027_80","VT0027_90","VT0030_20","VT0030_30","VT0030_40","VT0030_50","VT0030_60","VT0030_70","VT0030_80","VT0030_90"],[218514,81226,44403,28365,19177,14185,11531,9283,227061,80835,45296,27839,19125,14521,11208,9426,161985,57384,33134,22919,16871,13400,11241,10254,160721,62895,35294,22624,16461,13350,11078,9604,183925,65018,38792,25567,18734,15217,12670,10683,177291,71228,41872,28678,21602,16545,13424,11414,188180,71169,42267,29660,21663,16849,14116,11634,188150,72266,40492,25894,19340,14671,12263,10354,182445,60373,33699,20628,15039,11995,9651,8277,158704,50708,27703,17022,12553,10143,8497,7454,149428,55056,33813,21759,15995,12869,10586,9135,188981,65343,37162,23138,17264,12963,10603,8669,150963,52067,31533,19741,14894,11965,10378,8783,140291,46301,27096,16752,12321,10020,8766,7691,127505,39970,21738,13750,10700,8987,7862,7217,170068,61085,35742,24443,18042,14622,12922,11455,177390,61323,34850,23647,17141,13261,10885,8932,145417,54132,31256,20933,15911,13491,11954,10772,186465,71081,43740,27997,20341,16258,12492,10919,195557,76845,42206,28384,20417,15282,12424,10271,175643,67344,37962,25177,19093,14885,12309,10226,169754,61313,36219,24816,18289,14297,11895,10182,173251,64226,38895,26252,20129,16261,13647,11919,177512,64545,36979,24927,18031,14143,12057,9935,189725,74444,41731,28077,19526,15025,12144,10124,147272,57339,32268,21221,15341,12479,10331,9104,200850,72569,42427,27241,19803,15256,12088,10331,167649,59330,32863,22261,16342,12382,10656,8963,180013,65170,38739,25134,18922,14057,11303,9763,181166,63273,35884,24033,17370,13632,11258,9351,214912,81428,47577,30322,21963,15900,12376,10409,202343,72291,41886,26832,19347,14786,11565,9947,165138,63550,36187,22941,16404,13150,11033,9724,174339,61482,34818,22897,17673,14176,12187,10911,163546,56607,32914,22692,16914,13197,11209,9634],[1763,1229,1381,1546,1591,1634,1776,1929,1787,1198,1370,1486,1551,1609,1722,1827,2186,1434,1517,1666,1718,1868,1991,2288,2009,1420,1536,1641,1718,1872,2043,2306,2011,1429,1510,1599,1719,1875,2089,2279,1887,1356,1492,1590,1652,1777,1951,2124,1858,1366,1422,1505,1623,1719,1883,2021,1981,1415,1523,1614,1649,1709,1783,1851,1639,997,1010,1049,1071,1083,1097,1149,1593,989,1044,1057,1063,1082,1132,1201,1949,1285,1374,1478,1517,1612,1785,2022,1545,969,1001,1060,1062,1087,1127,1200,1951,1331,1406,1455,1508,1546,1696,1853,1793,1091,1139,1202,1201,1207,1293,1412,1749,1010,1083,1120,1148,1188,1303,1528,2201,1468,1553,1697,1825,1938,2191,2552,1817,1237,1301,1304,1343,1448,1511,1587,2398,1404,1468,1599,1686,1838,2120,2521,1900,1371,1473,1553,1629,1733,1774,1947,1885,1296,1363,1440,1517,1590,1625,1759,1732,1201,1281,1337,1411,1474,1551,1687,2110,1438,1516,1611,1660,1785,1915,2076,2101,1469,1578,1698,1755,1906,2101,2328,2000,1430,1561,1602,1666,1793,1935,2119,1530,1055,1057,1083,1081,1090,1135,1213,2031,1424,1521,1620,1724,1887,2045,2310,1956,1389,1485,1593,1677,1793,1915,2067,1968,1420,1485,1561,1586,1676,1778,1912,1975,1420,1482,1577,1604,1678,1733,1803,1895,1350,1390,1502,1522,1534,1660,1765,1881,1385,1455,1527,1577,1647,1687,1784,2034,1402,1485,1589,1624,1694,1747,1899,2235,1563,1662,1732,1765,1863,1979,2180,1944,1274,1376,1439,1477,1553,1683,1897,1976,1360,1467,1542,1643,1722,1832,2041],[180,61,61,65,70,74,83,109,192,64,54,55,59,59,64,81,229,73,71,73,82,92,116,152,198,68,67,71,77,90,109,158,194,57,54,59,60,64,85,108,176,60,57,58,59,61,65,75,170,61,54,51,55,58,65,84,176,62,54,55,55,59,59,65,180,58,50,50,50,48,50,54,170,58,53,51,53,57,57,69,199,60,60,63,65,73,94,127,161,56,49,49,48,50,50,53,197,65,63,63,64,69,77,96,200,55,58,58,60,62,74,97,196,56,60,59,61,69,87,129,224,79,78,84,95,116,160,232,181,60,51,52,51,52,55,59,269,75,78,84,100,122,169,240,167,58,57,58,60,65,74,92,186,61,57,57,58,59,61,69,168,62,54,54,54,55,54,58,202,55,55,54,56,58,68,89,209,63,62,62,68,77,100,138,194,60,60,60,65,75,90,119,161,78,54,53,55,53,54,58,196,60,62,64,66,77,98,139,186,62,56,59,57,64,68,81,194,59,57,61,60,65,74,92,178,62,57,58,59,61,65,73,177,71,57,59,60,62,63,69,170,61,56,58,57,59,61,74,190,63,58,58,59,60,63,78,231,65,60,62,69,84,98,131,210,59,57,57,62,71,90,124,192,54,53,50,54,61,69,90],[501,501,501,501,500,500,505,500,500,500,500,501,500,500,500,504,501,502,500,503,500,502,500,502,500,502,500,500,500,504,501,502,501,501,500,507,502,502,502,500,503,501,502,508,500,503,500,500,502,504,500,504,500,500,501,500,501,505,505,502,500,500,501,500,500,501,500,507,506,509,501,503,506,503,517,508,521,514,500,509,500,507,506,502,500,500,502,503,501,518,509,508,510,506,504,509,504,502,502,508,514,502,501,500,506,500,500,501,503,501,504,501,503,510,503,500,500,500,500,500,500,500,501,500,500,501,500,500,500,500,500,502,501,501,501,505,500,501,502,501,500,502,501,502,501,502,500,500,500,502,502,500,500,500,501,506,502,502,501,502,501,500,505,502,510,508,500,500,506,501,500,508,503,501,500,504,500,501,501,502,503,501,501,505,500,500,501,503,502,502,500,501,500,500,502,515,501,504,500,505,501,504,502,501,500,501,501,500,501,501,501,501,500,500,500,503,500,501,500,514,502,501,502,502,503,500,500,500,501,507,503,500,500,501,503,500,511,501,505,500,500,512,501,500,504,501,500,502,500,500,500,501,504,502,503,502,500,500,504,500,505,500,501,500,500,501,501,506,500,502,500,504,503,500,501,504,500,504,501,500],[22513,47775,45632,45358,41380,40689,35080,30574,22028,49135,48991,45381,44339,43660,39163,33030,17271,34393,31564,30123,26848,25485,21757,17936,18038,35017,31984,29904,28910,25127,21702,18019,18330,37133,32336,30310,30000,28216,24931,21037,19741,35711,34340,33347,31180,28886,25509,23412,20891,37205,41615,34404,33218,30169,28162,24865,18995,36961,36718,30687,29354,28707,27476,25237,21578,44938,46043,44401,44127,44141,44306,41881,22043,47535,46444,45399,43842,46120,44113,40390,19059,39976,37541,34339,31616,29065,24228,21203,22669,46446,48153,45996,45554,44780,44674,41815,18512,39621,37224,34774,32181,31071,28402,24783,20272,45188,44093,41689,40561,40352,36241,31260,19641,44948,45900,41957,41575,39590,34064,26204,16982,32558,30993,26800,24693,22333,19243,14895,21216,43246,42381,42367,40423,38906,36881,33394,14517,30912,29694,27553,25658,22390,19076,14858,20996,39320,39009,35162,32952,31124,29368,26127,20385,40478,41045,39088,34384,34351,32228,30883,21092,41409,39625,38051,36964,34112,33404,31400,18046,34303,33615,31102,29342,27406,24168,21666,17440,35346,33431,29947,28501,25868,22683,19649,18110,35818,33835,29756,29505,27335,23310,20733,22677,43851,45976,45839,45505,45743,43197,40221,18276,38556,34637,32026,30438,25721,22179,19363,18810,39393,35226,34302,31312,29352,25843,23147,20209,38279,35277,33738,31230,30023,29150,24636,19967,38119,35512,33392,31316,29463,29158,28420,19511,33781,35051,31805,31438,31067,30456,26724,20696,38305,34393,33926,31669,31208,30019,29063,19655,39164,37266,33311,30990,30329,29126,26124,17245,33680,31046,28442,25851,23301,22212,20387,18700,40035,38561,36720,35531,30856,27212,23136,19861,40605,39163,38458,33020,30329,27665,22319],[55681,167802,164227,161521,153898,147565,140181,98773,56469,155917,169955,172977,169443,159358,155992,146046,44573,145670,136923,134378,126682,120009,98108,69980,51580,146971,150518,142121,132452,116890,95962,68626,52304,172390,195058,172575,162561,139536,117665,95918,58115,171654,176059,175315,175260,171378,158786,141772,60311,170943,198529,219429,195070,174519,154531,117937,56541,152775,179505,178074,175397,165232,160120,150999,54123,177015,224486,204902,225983,231923,205177,174664,62059,177804,194081,200726,201753,189665,198097,152993,51993,172331,172191,161498,161350,147640,110275,87417,60445,191401,211229,207432,220363,213877,211267,195678,50090,158937,162129,162663,155723,148123,133590,109127,52428,177780,170929,177974,173858,168716,144219,106102,51481,174977,164448,163014,155004,144233,112640,77886,45504,129730,132275,124437,103415,89653,65779,46666,58859,153225,204688,201250,210436,176485,165696,160597,38861,136617,132131,113154,101951,84623,65077,46886,59503,190661,179870,179402,168767,159986,146312,121438,54429,177707,201498,196959,205065,183833,177764,155707,60247,155551,190980,193393,193355,195509,200378,168258,50103,176339,174632,178813,176484,171921,134477,111578,49709,148468,148371,148361,144992,128699,101079,75170,54369,174042,162030,162929,148832,135024,112654,82838,64185,138769,181646,187287,184551,185277,180083,161106,51684,180146,165511,163864,155819,141170,98697,76042,56562,176403,195285,192319,192525,171232,160904,126813,54257,180651,195502,178121,167900,160657,145488,109318,54980,177822,203944,194318,194399,169603,167808,141139,52073,153865,180344,172545,176181,165924,160441,139859,60267,172048,194001,180842,178077,169690,169527,141909,52476,175025,188459,175484,178083,167878,163796,125510,45353,147454,151157,151077,143730,122507,106220,87726,49064,174932,170691,177945,166876,149548,122194,86265,54920,180300,180677,191512,178032,166272,158447,128020],[123017,361011,399962,326064,318847,318611,292282,225549,108483,350945,474063,474245,431359,458124,396057,292256,96098,316798,348281,355445,298821,266301,196179,161824,109739,355662,366787,335045,335037,274137,229338,152382,120000,394159,420039,419939,417322,417513,304901,241919,124566,383064,417671,441552,441524,417825,417916,346524,125144,350045,407472,467048,466786,418344,367616,295721,124903,395543,446251,468623,494117,469430,494113,420254,121531,350851,421878,421976,509955,549463,505310,437759,125526,368694,419450,423064,418253,392641,386452,334989,109792,383076,394655,355129,355093,321544,281038,179038,126583,383331,465785,467210,505404,468667,465461,429825,109450,345085,363759,355456,356709,344934,326681,254432,109417,408361,394451,395066,368057,386811,320579,269594,113562,416672,369615,422758,422920,329784,294371,180940,97501,311068,311180,311279,289433,216245,152374,104988,117402,416864,467539,480392,480431,467504,480458,447546,76572,307454,307101,286572,224348,183955,138218,94080,132861,394232,419476,438498,438693,438730,327107,266672,118376,356057,396702,394518,394591,394758,396853,352058,123234,364831,417435,417175,417171,417183,417113,416867,106110,413519,430339,431649,431755,418410,386630,309884,105972,366841,374549,374886,346588,325761,270957,181574,110743,396737,384768,417578,374696,354002,272435,196592,134085,280923,434720,434743,434732,440041,439935,440241,114530,376857,388108,387176,341041,329773,256226,183077,115617,366761,419093,407659,439853,407693,357620,303047,112187,392520,393915,391740,394074,375241,341320,278807,129363,342006,393906,394251,392772,393024,367035,329416,127037,322495,392548,395709,386991,392714,392528,382909,131195,387320,394448,418234,440339,418336,411361,349713,123115,392294,394464,418220,429110,418193,418492,335245,94453,355278,413208,402874,368381,325605,270535,178834,106901,366840,419729,408347,391366,306956,271408,182438,114614,437653,437702,478934,476118,394560,406629,269764],[76478,219470,224435,218494,202874,200981,182268,143298,70760,213918,252852,247570,238317,244749,226599,181727,58827,177178,186212,185792,166262,152642,123279,93453,69099,196985,203713,196609,186225,160027,133058,90608,68214,227651,241624,229140,220989,235850,170143,136981,75424,214240,234830,228206,225057,222199,214560,186486,78027,207775,236976,247502,237779,223140,206135,165997,76682,217922,244360,238811,243892,235090,237271,220016,72964,217086,253186,259689,255938,267442,263399,250968,76291,221426,245070,250459,234865,225627,231529,192770,66229,224673,229502,219612,215089,209713,152983,112718,83553,225798,263035,264905,278483,267098,264023,246337,67588,202264,210157,225553,209989,196686,180774,144982,66258,225691,218085,220299,213427,209141,182113,141893,66892,232852,216652,225553,219883,192397,165924,108715,61149,169142,171726,165252,148379,121576,91168,64390,73016,234818,262281,262068,269590,264896,261727,238230,50831,174401,171959,169181,144024,126085,89225,61878,77251,217909,230030,231527,220661,217916,188640,152498,71547,212776,230319,236969,230163,248387,240171,203482,75980,201998,236049,242968,241573,241536,244659,227908,68970,241889,244184,247775,243655,239550,211033,163998,63114,208073,211866,214663,201207,180757,141087,108549,66807,217234,224090,219383,208493,186768,159797,123936,80489,168997,238915,242844,236613,245880,244963,237053,69654,219655,220154,216265,210487,186575,142891,102478,68198,216599,238827,230926,240658,216200,200238,172435,68809,212941,221946,218516,218238,206465,189725,155380,76700,201552,221722,219632,219895,217805,203810,186393,78455,179471,223741,221324,216670,214414,216905,201287,76473,210873,234580,233126,236979,224658,219304,191025,69735,206159,221983,233665,222875,222684,215446,184924,60725,211997,229249,214038,197895,169811,144022,110479,62697,224123,240025,239051,219372,197480,158120,115135,69433,239181,242714,257200,240238,223749,204747,157095],[393795,850851,850843,802256,626473,853511,743934,660715,336481,741248,741297,743156,744207,743173,743132,702308,243231,611682,559057,611692,559218,558930,534361,368672,298015,627138,702272,702133,702277,661193,589347,361252,260427,698500,913975,913993,797207,1334580,696006,505190,332816,730959,801732,731036,731158,730960,731056,698449,373025,661032,758956,758737,758441,660741,660492,610331,392357,707737,887897,701437,702164,702201,702180,701890,309590,647611,792671,792449,680789,792620,792195,792303,352623,662523,914224,914179,662023,661823,913596,614364,255809,833020,914063,914136,914005,1334881,581344,442739,447127,700778,914154,913822,951218,1001028,914495,714091,249308,698472,698506,988254,698269,698143,697948,589532,255631,646991,646682,646604,646958,646849,646608,494778,261136,822538,647342,691326,670271,647525,647084,382733,283386,611372,611572,704961,516032,474679,382462,307932,259759,1126663,1126250,1126562,1126972,1127273,1128982,914131,258087,611806,692324,692497,692313,692423,382818,273500,281814,626464,913992,913791,697029,852440,626319,573642,317152,959344,914382,914266,914244,1380913,1370883,813303,254972,568544,749086,913914,914052,914405,984805,714128,434632,1099552,1099048,1098985,1098913,1098758,969144,684799,293434,698457,698318,730677,730672,730823,537550,504568,251806,760223,730769,682938,698062,698205,698207,504557,347180,541083,698618,698928,698846,792410,792748,792538,393103,922836,837714,823095,786193,786253,580690,386838,244460,923077,923002,923267,923080,786499,660049,659935,295558,681480,614505,775653,680874,680720,681149,581761,296321,604685,681393,681076,680729,680904,681030,680835,412964,570846,647382,647511,627311,647613,714721,647179,269722,681299,933208,933455,933507,681201,681037,681034,257797,681607,681467,933627,681239,681122,681604,680777,259819,933244,933103,662681,662717,566823,461239,455356,270770,661679,913854,913783,671003,860838,568315,504412,249074,914092,913646,913577,764558,913808,831750,542205],[36370000,38110000,38880000,39690000,40300000,40740000,41190000,41450000,36470000,38320000,39000000,39780000,40380000,40820000,41260000,41600000,36410000,38030000,38530000,39160000,39520000,39870000,40220000,40430000,36370000,37930000,38510000,39160000,39570000,39920000,40310000,40520000,36390000,37960000,38550000,39140000,39570000,39930000,40370000,40650000,36140000,37730000,38220000,38800000,39300000,39780000,40180000,40650000,36250000,37710000,38140000,38680000,39100000,39490000,39880000,40110000,36570000,38350000,38900000,39550000,40070000,40500000,40830000,41180000,35910000,37350000,37460000,37900000,38260000,38480000,38590000,38740000,36030000,37290000,37480000,37930000,38090000,38250000,38390000,38520000,36510000,37890000,38340000,38880000,39300000,39630000,39900000,40060000,35710000,37040000,37130000,37540000,37830000,38000000,38230000,38350000,36260000,37700000,38120000,38560000,38950000,39150000,39410000,39650000,36200000,37400000,37750000,38210000,38460000,38630000,38770000,38860000,35860000,37000000,37300000,37690000,37850000,37970000,38050000,38160000,36510000,38070000,38600000,39170000,39570000,39830000,40160000,40270000,36140000,37790000,38030000,38510000,38840000,39200000,39440000,39690000,36460000,38030000,38390000,38910000,39300000,39520000,39710000,39840000,36280000,37840000,38330000,38970000,39380000,39800000,40090000,40350000,36180000,37740000,38040000,38570000,39010000,39330000,39590000,39830000,36170000,37620000,37990000,38550000,38860000,39240000,39530000,39790000,36400000,37980000,38470000,39030000,39410000,39780000,40110000,40330000,36250000,37890000,38370000,38980000,39450000,39880000,40200000,40450000,36330000,37830000,38440000,38980000,39430000,39860000,40190000,40450000,35710000,37120000,37130000,37630000,37910000,38110000,38160000,38380000,36280000,37770000,38300000,38840000,39340000,39720000,40110000,40380000,36220000,37820000,38260000,38820000,39310000,39760000,40200000,40500000,36530000,38140000,38700000,39280000,39660000,40090000,40310000,40510000,36500000,38130000,38710000,39290000,39700000,40180000,40450000,40630000,36250000,37860000,38280000,38840000,39260000,39560000,39950000,40280000,36420000,38100000,38620000,39210000,39630000,40090000,40400000,40700000,36500000,38250000,38720000,39340000,39710000,40120000,40460000,40740000,36730000,38400000,39050000,39720000,40230000,40650000,40910000,41070000,36330000,37770000,38180000,38610000,38990000,39270000,39510000,39630000,36450000,38050000,38530000,39050000,39460000,39870000,40180000,40530000]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>n<\/th>\n      <th>n.500<\/th>\n      <th>L50<\/th>\n      <th>min<\/th>\n      <th>N80<\/th>\n      <th>N50<\/th>\n      <th>N20<\/th>\n      <th>E.size<\/th>\n      <th>max<\/th>\n      <th>sum<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p> </p>
+</div>
+<div id="n50-en-fonction-de-la-longueur-du-kmere" class="section level2">
+<h2>N50 en fonction de la longueur du kmère</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#kable(N50, caption =&quot; Tableau n°2: Comparaison de la qualité de l&#39;Assemblage (N50) en fonction de la longueur de kmère utilisée&quot;)</span>
+<span class="kw">datatable</span>(N50, <span class="dt">caption =</span><span class="st">&quot; Tableau n°2: Comparaison de la qualité de l&#39;Assemblage (N50) en fonction de la longueur de kmère utilisée&quot;</span>,<span class="dt">colnames =</span> <span class="kw">c</span>(<span class="st">&#39;Id&#39;</span>, <span class="kw">colnames</span>(N50)),<span class="dt">extensions =</span> <span class="st">&#39;Buttons&#39;</span>, <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;Blfrtip&#39;</span>,<span class="dt">buttons =</span> <span class="kw">c</span>(<span class="st">&#39;copy&#39;</span>, <span class="st">&#39;csv&#39;</span>, <span class="st">&#39;excel&#39;</span>, <span class="st">&#39;pdf&#39;</span>, <span class="st">&#39;print&#39;</span>)))</code></pre></div>
+<div id="htmlwidget-804add993eea1c6153ac" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-804add993eea1c6153ac">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°2: Comparaison de la qualité de l'Assemblage (N50) en fonction de la longueur de kmère utilisée<\/caption>","data":[["BF0072","BN0019","BN0119","BN0123","BN0202","BN0252","CD0065","CD0142","CH0043","CH0072","CH0452","CH0461","CH0533","CH1103","CH1164","IN0017","IN0054","IN0059","IN0114","IN0115","IN0116","ML0062","NG0012","NG0054","NP0058","TG0004","TG0032","TN0001","TN0002","TN0057","TN0065","TN0090","US0041","VT0027","VT0030"],[55681,56469,44573,51580,52304,58115,60311,56541,54123,62059,51993,60445,50090,52428,51481,45504,58859,38861,59503,54429,60247,50103,49709,54369,64185,51684,56562,54257,54980,52073,60267,52476,45353,49064,54920],[167802,155917,145670,146971,172390,171654,170943,152775,177015,177804,172331,191401,158937,177780,174977,129730,153225,136617,190661,177707,155551,176339,148468,174042,138769,180146,176403,180651,177822,153865,172048,175025,147454,174932,180300],[164227,169955,136923,150518,195058,176059,198529,179505,224486,194081,172191,211229,162129,170929,164448,132275,204688,132131,179870,201498,190980,174632,148371,162030,181646,165511,195285,195502,203944,180344,194001,188459,151157,170691,180677],[161521,172977,134378,142121,172575,175315,219429,178074,204902,200726,161498,207432,162663,177974,163014,124437,201250,113154,179402,196959,193393,178813,148361,162929,187287,163864,192319,178121,194318,172545,180842,175484,151077,177945,191512],[153898,169443,126682,132452,162561,175260,195070,175397,225983,201753,161350,220363,155723,173858,155004,103415,210436,101951,168767,205065,193355,176484,144992,148832,184551,155819,192525,167900,194399,176181,178077,178083,143730,166876,178032],[147565,159358,120009,116890,139536,171378,174519,165232,231923,189665,147640,213877,148123,168716,144233,89653,176485,84623,159986,183833,195509,171921,128699,135024,185277,141170,171232,160657,169603,165924,169690,167878,122507,149548,166272],[140181,155992,98108,95962,117665,158786,154531,160120,205177,198097,110275,211267,133590,144219,112640,65779,165696,65077,146312,177764,200378,134477,101079,112654,180083,98697,160904,145488,167808,160441,169527,163796,106220,122194,158447],[98773,146046,69980,68626,95918,141772,117937,150999,174664,152993,87417,195678,109127,106102,77886,46666,160597,46886,121438,155707,168258,111578,75170,82838,161106,76042,126813,109318,141139,139859,141909,125510,87726,86265,128020]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>20<\/th>\n      <th>30<\/th>\n      <th>40<\/th>\n      <th>50<\/th>\n      <th>60<\/th>\n      <th>70<\/th>\n      <th>80<\/th>\n      <th>90<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p> </p>
+</div>
+</div>
+<div id="selection-des-assemblages" class="section level1">
+<h1>Selection des assemblages</h1>
+<p style="text-align:justify" ;>
+Ici, le but est de choisir la longueur de kmère utilisée qui donne le meilleur assemblage pour chaque souche.
+</p>
+<p style="text-align:justify" ;>
+Le meilleur assemblage de chaque souche est déterminé par rapport au N50. Pour cela, pour chaque souche, l’assemblage avec le N50 le plus élevé est sélectionné. Dans le tableau n°3, les meilleurs assemblages sont donc donnés avec en id, l’id de la souche suivie de la longueur du kmère utilisée. Les N50 en gras sont ceux supérieur à 25 000.
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selection &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">matrix</span>(<span class="ot">NA</span>,<span class="dt">ncol=</span> <span class="kw">ncol</span>(dataQuality) ,<span class="dt">nrow =</span> (<span class="kw">nrow</span>(dataQuality)<span class="op">/</span><span class="dv">8</span>)))
+id.select &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(N50))
+{
+  bestKmer &lt;-<span class="st"> </span><span class="kw">colnames</span>(N50[i,])[<span class="kw">which</span>(N50[i,] <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(N50[i,]), <span class="dt">arr.ind =</span> <span class="ot">TRUE</span>)[<span class="dv">2</span>]]
+  newId &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">rownames</span>(N50[i,]),<span class="kw">toString</span>(bestKmer),<span class="dt">sep =</span> <span class="st">&#39;_&#39;</span>)
+  id.select &lt;-<span class="st"> </span><span class="kw">c</span>(id.select,newId)
+  selection[i,] &lt;-<span class="st">  </span>dataQuality[<span class="kw">rownames</span>(dataQuality) <span class="op">==</span><span class="st"> </span>newId,]
+
+}
+<span class="kw">colnames</span>(selection) &lt;-<span class="st"> </span><span class="kw">colnames</span>(dataQuality)
+<span class="kw">rownames</span>(selection) &lt;-<span class="st"> </span>id.select
+
+<span class="co">#kable(selection, caption =&quot; Tableau n°3: Données de qualité des meilleurs assemblages selectionnés en fonction de la longueur de kmère utilisée&quot;)</span>
+<span class="kw">datatable</span>(selection, <span class="dt">caption =</span><span class="st">&quot; Tableau n°3: Données de qualité des meilleurs assemblages selectionnés en fonction de la longueur de kmère utilisée&quot;</span>, <span class="dt">colnames =</span> <span class="kw">c</span>(<span class="st">&#39;Id&#39;</span>, <span class="kw">colnames</span>(selection)),<span class="dt">extensions =</span> <span class="st">&#39;Buttons&#39;</span>, <span class="dt">options =</span> <span class="kw">list</span>(<span class="dt">dom =</span> <span class="st">&#39;Blfrtip&#39;</span>,<span class="dt">buttons =</span> <span class="kw">c</span>(<span class="st">&#39;copy&#39;</span>, <span class="st">&#39;csv&#39;</span>, <span class="st">&#39;excel&#39;</span>, <span class="st">&#39;pdf&#39;</span>, <span class="st">&#39;print&#39;</span>)))<span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">formatStyle</span>(<span class="st">&#39;N50&#39;</span>,<span class="dt">Color =</span> <span class="kw">styleInterval</span>(<span class="dv">25000</span>, <span class="kw">c</span>(<span class="st">&#39;NA&#39;</span>, <span class="st">&#39;black&#39;</span>)),<span class="dt">fontWeight=</span> <span class="kw">styleInterval</span>(<span class="dv">25000</span>, <span class="kw">c</span>(<span class="st">&#39;NA&#39;</span>, <span class="st">&#39;black&#39;</span>)))</code></pre></div>
+<div id="htmlwidget-df8bdde16aeefb5ee199" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-df8bdde16aeefb5ee199">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°3: Données de qualité des meilleurs assemblages selectionnés en fonction de la longueur de kmère utilisée<\/caption>","data":[["BF0072_30","BN0019_50","BN0119_30","BN0123_40","BN0202_40","BN0252_40","CD0065_50","CD0142_40","CH0043_70","CH0072_60","CH0452_30","CH0461_60","CH0533_50","CH1103_50","CH1164_30","IN0017_40","IN0054_60","IN0059_30","IN0114_30","IN0115_60","IN0116_80","ML0062_50","NG0012_30","NG0054_30","NP0058_50","TG0004_30","TG0032_40","TN0001_40","TN0002_40","TN0057_40","TN0065_40","TN0090_40","US0041_40","VT0027_50","VT0030_50"],[81226,27839,57384,35294,38792,41872,29660,40492,11995,12553,55056,17264,19741,16752,39970,35742,17141,54132,71081,20417,12309,24816,64226,64545,28077,57339,42427,32863,38739,35884,47577,41886,36187,22897,22692],[1229,1486,1434,1536,1510,1492,1505,1523,1083,1063,1285,1062,1455,1202,1010,1553,1343,1404,1371,1517,1551,1611,1469,1430,1083,1424,1485,1485,1482,1390,1455,1485,1662,1439,1542],[61,55,73,67,54,57,51,54,48,53,60,48,63,58,56,78,51,75,58,58,54,54,63,60,53,60,56,57,57,57,56,58,60,57,50],[501,501,502,500,500,502,504,505,509,521,507,510,508,501,510,501,501,501,502,502,500,508,501,500,515,504,501,500,500,503,501,500,504,506,504],[47775,45381,34393,31984,32336,34340,34404,36718,44141,43842,39976,45554,34774,41689,44948,30993,40423,30912,39320,34384,33404,31102,35346,35818,45839,38556,35226,35277,35512,35051,34393,37266,31046,36720,38458],[167802,172977,145670,150518,195058,176059,219429,179505,231923,201753,172331,220363,162663,177974,174977,132275,210436,136617,190661,205065,200378,178813,148468,174042,187287,180146,195285,195502,203944,180344,194001,188459,151157,177945,191512],[361011,474245,316798,366787,420039,417671,467048,446251,549463,418253,383076,505404,355456,395066,416672,311180,480431,307454,394232,394591,417113,431649,366841,396737,434743,376857,419093,393915,393906,392548,394448,394464,413208,408347,478934],[219470,247570,177178,203713,241624,234830,247502,244360,267442,234865,224673,278483,225553,220299,232852,171726,269590,174401,217909,230163,244659,247775,208073,217234,242844,219655,238827,221946,221722,223741,234580,221983,229249,239051,257200],[850851,743156,611682,702272,913975,801732,758737,887897,792620,662023,833020,951218,988254,646604,822538,611572,1126972,611806,626464,914244,984805,1098985,698457,760223,698928,922836,923002,614505,681393,647382,933208,681467,933103,913783,913577],[38110000,39780000,38030000,38510000,38550000,38220000,38680000,38900000,38480000,38090000,37890000,37830000,38560000,38210000,37000000,38600000,38840000,38030000,37840000,39010000,39530000,39030000,37890000,37830000,37630000,37770000,38260000,38700000,38710000,38280000,38620000,38720000,39050000,38610000,39050000]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>n<\/th>\n      <th>n.500<\/th>\n      <th>L50<\/th>\n      <th>min<\/th>\n      <th>N80<\/th>\n      <th>N50<\/th>\n      <th>N20<\/th>\n      <th>E.size<\/th>\n      <th>max<\/th>\n      <th>sum<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10]}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'font-weight':isNaN(parseFloat(value)) ? '' : value <= 25000 ? 'NA' : 'black','color':isNaN(parseFloat(value)) ? '' : value <= 25000 ? 'NA' : 'black'});\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<p> </p>
+</div>
+<div id="visualisation-des-graph" class="section level1">
+<h1>Visualisation des graph</h1>
+<div id="verification-de-la-selection-du-kmere-optimal." class="section level2">
+<h2>Vérification de la selection du kmère optimal.</h2>
+<p style="text-align:justify" ;>
+Dans un premier temps, les graphiques avant selection du kmère optimal vont être crée pour confirmer le choix du meilleurs assemblage par rapport aux autres statistiques de qualité. Les souches sont en abscisse tandis que la statistique étudié est en ordonnée. Les points en rouges sont les meilleurs assemblages selectionnée precédement.
+</p>
+<div id="graph-n50" class="section level3">
+<h3>Graph N50</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x.kmère &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(<span class="kw">nrow</span>(dataQ)<span class="op">/</span><span class="dv">8</span>))
+{
+  x.kmère &lt;-<span class="st"> </span><span class="kw">c</span>(x.kmère,<span class="kw">rep</span>(i,<span class="dv">8</span>))
+}
+select.kmère &lt;-<span class="st"> </span><span class="kw">c</span>()
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(dataQuality))
+{
+  <span class="cf">if</span> (<span class="kw">rownames</span>(dataQuality[i,]) <span class="op">%in%</span><span class="st"> </span>id.select)
+  {
+    select.kmère &lt;-<span class="st"> </span><span class="kw">c</span>(select.kmère, <span class="ot">TRUE</span>)
+  }
+  <span class="cf">else</span> 
+  {
+    select.kmère &lt;-<span class="st"> </span><span class="kw">c</span>(select.kmère, <span class="ot">FALSE</span>)
+  }
+}
+<span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQuality<span class="op">$</span>N50, <span class="dt">ylab =</span><span class="st">&#39;N50&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°1 : Assemblage de chaque souche en fonction du N50&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">points</span>(<span class="dt">x =</span> x.kmère[select.kmère], <span class="dt">y =</span> dataQuality<span class="op">$</span>N50[select.kmère], <span class="dt">cex =</span> <span class="fl">0.4</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20N50%20avant%20selection%20kmere-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-l50" class="section level3">
+<h3>Graph L50</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère , <span class="dt">y =</span> dataQuality<span class="op">$</span>L50, <span class="dt">ylab =</span><span class="st">&#39;L50&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°2 : Assemblage de chaque souche en fonction du L50&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.1</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">points</span>(<span class="dt">x =</span> x.kmère[select.kmère], <span class="dt">y =</span> dataQuality<span class="op">$</span>L50[select.kmère], <span class="dt">cex =</span> <span class="fl">0.3</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20L50%20avant%20selection%20kmere-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-e-size" class="section level3">
+<h3>Graph E-size</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQuality<span class="op">$</span>E.size,<span class="dt">ylab =</span><span class="st">&#39;E.size&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="dt">main =</span><span class="st">&quot;Graphique n°3 : Assemblage de chaque souche en fonction de l&#39;E-size&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">points</span>(<span class="dt">x =</span> x.kmère[select.kmère], <span class="dt">y =</span> dataQuality<span class="op">$</span>E.size[select.kmère], <span class="dt">cex =</span> <span class="fl">0.4</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20E-size%20avant%20selection%20kmere-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-longueur-max" class="section level3">
+<h3>Graph Longueur max</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQuality<span class="op">$</span>max,<span class="dt">ylab =</span><span class="st">&#39;max&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°4 : Assemblage de chaque souche en fonction de la longueur max des contigs&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">points</span>(<span class="dt">x =</span> x.kmère[select.kmère], <span class="dt">y =</span> dataQuality<span class="op">$</span>max[select.kmère], <span class="dt">cex =</span> <span class="fl">0.4</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20longuer%20max%20du%20contigs%20aavant%20selection%20kmere-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-n500" class="section level3">
+<h3>Graph n:500</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x.kmère, <span class="dt">y =</span> dataQuality<span class="op">$</span>n.<span class="dv">500</span>,<span class="dt">ylab =</span><span class="st">&#39;n.500&#39;</span>,<span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°5 : Assemblage de chaque souche en fonction du nombre de contigs supérieur à 500&#39;</span>, <span class="dt">cex =</span> <span class="fl">0.3</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">points</span>(<span class="dt">x =</span> x.kmère[select.kmère], <span class="dt">y =</span> dataQuality<span class="op">$</span>n.<span class="dv">500</span>[select.kmère], <span class="dt">cex =</span> <span class="fl">0.4</span>, <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20n500%20avant%20selection%20kmere-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="graphique-apres-selection-du-kmere-optimale" class="section level2">
+<h2>Graphique après selection du kmère optimale</h2>
+<p style="text-align:justify" ;>
+Ensuite les graphiques qui montrent les principales statistiques de qualité des assemblages après sélection du kmère optimale sont montrés. Une sélection des assemblages avec un N50 supérieur à 25 000 est réalisée. Sur le graphique n°6 cela correspond au point au-dessus de la ligne horizontale rouge.
+</p>
+<div id="graph-n50-1" class="section level3">
+<h3>Graph N50</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">color &lt;-<span class="st"> </span><span class="kw">c</span>()
+id.plot &lt;-<span class="st"> </span><span class="kw">rownames</span>(selection)
+x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(selection)
+N50max &lt;-<span class="st"> </span><span class="dv">25000</span> <span class="co"># Selection des assemblage avec un N50 supérieur à 25 000</span>
+select &lt;-<span class="st"> </span>selection<span class="op">$</span>N50 <span class="op">&gt;</span><span class="st"> </span><span class="dv">25000</span>
+unselect &lt;-<span class="st"> </span>selection<span class="op">$</span>N50 <span class="op">&lt;</span><span class="st"> </span><span class="dv">25000</span>
+color[select] &lt;-<span class="st"> &#39;red&#39;</span>
+color[unselect] &lt;-<span class="st"> &#39;black&#39;</span>
+<span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> selection<span class="op">$</span>N50, <span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">ylab =</span><span class="st">&#39;N50&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°6 : Assemblage de chaque souche en fonction du N50&#39;</span>, <span class="dt">col =</span> color, <span class="dt">cex =</span> <span class="fl">0.4</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)
+<span class="kw">abline</span>(<span class="dt">h=</span>N50max,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>) </code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20N50-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#text(x= x[select], y = (selection$N50[select] -10000),lab = rownames(selection[select,]), cex=0.6)</span></code></pre></div>
+</div>
+<div id="graph-l50-1" class="section level3">
+<h3>Graph L50</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> selection<span class="op">$</span>L50, <span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">ylab =</span><span class="st">&#39;L50&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> ,<span class="dt">main =</span><span class="st">&#39;Grapĥique n°7 : Assemblage de chaque souche en fonction du L50&#39;</span>, <span class="dt">col =</span> color, <span class="dt">cex =</span> <span class="fl">0.4</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20L50-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-e-size-1" class="section level3">
+<h3>Graph E-size</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> selection<span class="op">$</span>E.size, <span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">ylab =</span><span class="st">&#39;E-size&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> ,<span class="dt">main =</span><span class="st">&quot;Graphique n°8 : Assemblage de chaque souche en fonction de l&#39;E-size&quot;</span>, <span class="dt">col =</span> color, <span class="dt">cex =</span> <span class="fl">0.4</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20E-size-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-longueur-max-1" class="section level3">
+<h3>Graph Longueur max</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> selection<span class="op">$</span>max, <span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">ylab =</span><span class="st">&#39;max&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°9 : Assemblage de chaque souche en fonction de la longueur max des contigs&#39;</span>, <span class="dt">col =</span> color, <span class="dt">cex =</span> <span class="fl">0.4</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20longuer%20max%20du%20contigs-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="graph-n500-1" class="section level3">
+<h3>Graph n:500</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> selection<span class="op">$</span>n.<span class="dv">500</span>, <span class="dt">xlab =</span> <span class="st">&#39;souche&#39;</span>, <span class="dt">ylab =</span><span class="st">&#39;max&#39;</span>,<span class="dt">xaxt=</span><span class="st">&quot;n&quot;</span> , <span class="dt">main =</span><span class="st">&#39;Graphique n°10 : Assemblage de chaque souche en fonction en fonction </span><span class="ch">\n</span><span class="st"> du nombre de contigs supérieur à 500&#39;</span>, <span class="dt">col =</span> color, <span class="dt">cex =</span> <span class="fl">0.4</span>)
+<span class="kw">axis</span>(<span class="dt">side =</span> <span class="dv">1</span>,<span class="dt">at =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Id), <span class="dt">labels =</span> Id, <span class="dt">las =</span><span class="dv">2</span>, <span class="dt">cex.axis =</span> <span class="fl">0.6</span>)</code></pre></div>
+<p><img src="assemblageSoucheToulouse_files/figure-html/plot%20n500-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
