@@ -231,8 +231,10 @@ allData <- read.table(file=file.quality, sep=',', header=TRUE)
 ```{r Barplot proportion hôte}
 library(ggplot2)
 pie <- ggplot(allData, aes(x=hôte, fill=hôte))+
-  geom_bar(width = 1, stat='count', position = position_stack(reverse = TRUE)) +  theme(axis.text.x = element_blank(), axis.ticks = element_blank()) +labs(x='Hôtes', fill ="Hôtes")
+  geom_bar(width = 1, stat='count', position = position_stack(reverse = TRUE)) +  theme(axis.text.x = element_blank(), axis.ticks = element_blank()) +labs(x='Hôtes', fill ="")
 pie <- pie +geom_text(stat = 'count',aes(label=..count..), vjust=-0.3, size=3.5)
+pie <- pie + scale_x_discrete(name ="Hôtes",
+                    limits=c('Rice','Hordeum','Setaria','Brachiaria','Stenotaphrum','Eleusine','Eragrostis','Triticum','Lolium','Festuca','Bromus','Avena','Mais','Echinichola','Digitaria','Pennisetum')) + scale_fill_discrete(breaks=c('Rice','Hordeum','Setaria','Brachiaria','Stenotaphrum','Eleusine','Eragrostis','Triticum','Lolium','Festuca','Bromus','Avena','Mais','Echinichola','Digitaria','Pennisetum')) 
 pie
 ```
 <center><span style="line-height:4pt;font-size: 10pt";>Graphique1 : Représentation de la proportion des hôtes infectés</span></center>

@@ -103,8 +103,9 @@ for (i in 1:nrow(N50))
 }
 colnames(selection) <- colnames(dataQuality)
 rownames(selection) <- id.select
+dataQuality <- dataQuality[(40*8+1):nrow(dataQuality),]
 x.kmère <- c()
-for (i in 1:(nrow(dataQ)/8))
+for (i in 1:(nrow(dataQuality)/8))
 {
   x.kmère <- c(x.kmère,rep(i,8))
 }
@@ -122,20 +123,22 @@ for (i in 1:nrow(dataQuality))
 }
 
 ######## Affichage plot #########
+N50max <- 25000 # Selection des assemblage avec un N50 supérieur à 25 000
 
 par(mfrow=c(2,2))
 plot(x = x.kmère, y = dataQuality$L50, ylab ='L50', xlab = 'souche', xaxt="n" , main ='Graphique n°1 : Assemblage de chaque souche \nen fonction du L50', cex = 0.1)
 axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
 points(x = x.kmère[select.kmère], y = dataQuality$L50[select.kmère], cex = 0.3, col = 'red')
-plot(x = x.kmère, y = dataQuality$E.size,ylab ='E.size',xlab = 'souche',xaxt="n", main ="Graphique n°2 : Assemblage de chaque souche \nen fonction de l'E-size", cex = 0.3)
+plot(x = x.kmère, y = dataQuality$N50, ylab ='N50',xlab = 'souche', xaxt="n" , main ='Graphique n°1 : Assemblage de chaque souche en fonction du N50', cex = 0.3)
 axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
-points(x = x.kmère[select.kmère], y = dataQuality$E.size[select.kmère], cex = 0.4, col = 'red')
+points(x = x.kmère[select.kmère], y = dataQuality$N50[select.kmère], cex = 0.4, col = 'red')
 plot(x = x.kmère, y = dataQuality$max,ylab ='max',xlab = 'souche', xaxt="n" , main ='Graphique n°3 : Assemblage de chaque souche \nen fonction de la longueur max des contigs', cex = 0.3)
 axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
 points(x = x.kmère[select.kmère], y = dataQuality$max[select.kmère], cex = 0.4, col = 'red')
 plot(x = x.kmère, y = dataQuality$n.500,ylab ='n.500',xlab = 'souche', xaxt="n" , main ='Graphique n°4 : Assemblage de chaque souche \nen fonction du nombre de contigs supérieur à 500', cex = 0.3)
 axis(side = 1,at = 1:length(Id), labels = Id, las =2, cex.axis = 0.6)
 points(x = x.kmère[select.kmère], y = dataQuality$n.500[select.kmère], cex = 0.4, col = 'red')
+abline(h=N50max,col="red")
 
 ```
 
