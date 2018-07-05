@@ -1,0 +1,202 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Rapport de Stage},
+            pdfauthor={CHARRIAT Florian},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Rapport de Stage}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{CHARRIAT Florian}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{29 mars 2018}
+
+
+\begin{document}
+\maketitle
+
+\section{Matériels et Methodes}\label{materiels-et-methodes}
+
+\subsection{1.Matériels}\label{materiels}
+
+\begin{quote}
+\begin{itemize}
+\tightlist
+\item
+  201 génome (81 litterature et 120 projet)
+\item
+  Définir les 32 RNAseq
+\item
+  Définir protéine de référence de 70-15 (expliquer 70-15)
+\end{itemize}
+\end{quote}
+
+\subsection{2.Methodes}\label{methodes}
+
+\subsubsection{2.1 Assemblage}\label{assemblage}
+
+Les données de séquençage étant des données short read, l'outils ABySS
+(Assembly By Short Sequences) {[}4{]} à été utilisé pour réaliser les
+assemblages. L'assemblage avec cet outil se réalise en deux étapes. Une
+première étape consiste à generer touts les k-mère de longeur donnée à
+partir des reads. Cette ensemble de k-mères est ensuite utilisée pour
+construire les contigs initiaux. Puis la deuxième étape utilise les
+informations de pair end pour étendre les contigs et résoudre les
+ambiguités de chevauchement des contigs.
+
+Pour obtenir le meilleur assemblage possible, chaque souche est
+assemblée 8 fois avec une taille de kmère différents. Les tailles de
+kmère utilisées vont de 20 a 90 avec un pas de 10. Le meilleur
+assemblage de chaque souche est ensuite sélectionné après visualisation
+des données de qualité.
+
+Une fois la selection réalisé, le script formatFastaName est utilsé.
+Pour chaque assemblage selectionné, le script élimine, dans une premier
+temps, les scaffolds de taille inférieur à 500 pb qui risque de poser
+problème pour l'annotation. Puis les scaffolds seront numerotés en
+fonction de leur longueur afin d'homogeneisé la nomenclature des
+scaffolds. Le plus grand scaffold sera alors nommé scaffold\_1.
+
+\subsubsection{2.2 Eléments répétés}\label{elements-repetes}
+
+Une fois l'assemblage réalisé, il est necessaire de masquer les éléments
+répétés. En effet, les éléments répétés peuvent poser problèmes lors
+d'annotation automatique. Ils peuvent être confondus avec des gènes
+codant pour des protéines. Mais peuvent aussi perturber la structure des
+modèles de gène, en s'insérant dans les introns par exemple. L'outil
+repeatMasker est donc utilisé pour masquer les éléments répétés des
+assemblages selectionnés. Cet outil compare les sequences provenant
+d'une base de données d'éléments répétés avec ceux provenant de
+l'assemblage. Il va ensuite masquer ces éléments trouvés en les
+remplaçant par des N. L'outils repeatMasker permet aussi d'obtenir une
+annotation détaillée des répétitions présentes dans l'assemblage. La
+base de donnée utilisé pour repeatMasker est Repbase auquel à été ajouté
+les éléments répétées decouvert par l'equipe à l'aide de l'outil
+RepeatModeler.
+
+Une fois les éléments masqués masqué, les scaffolds ne comportant que
+des éléments répétés sont élimner des assemblages. En effet, les outils
+utilisés pour l'annotation automatique n'arrive pas a annoter les
+assemblages comportant des scaffolds uniquement composé de N.
+
+\subsubsection{2.3 Annotation automatique}\label{annotation-automatique}
+
+M.oyzae étant un eukaryote, l'outil Braker à été utilisée pour
+l'annotation automatique. Cet outil nescessite un fichier d'assemblage
+au format fasta et un fichier d'alignement de donnée RNA-seq sur
+l'assemblage au format bam. Braker utilise un pipeline d'annotation qui
+utilise les outils GeneMark-ET et AUGUSTUS.
+
+Tout d'abord, GeneMark-ET génère des structures géniques. Pour cela
+l'outil utilse un ensemble de paramètre du hidden semi-Markov model
+(HSMM) définit initiallement pour prédire des régions codante dans
+l'assemblage. Une fois ces gènes prédites, un sous ensemble d'exon et
+intron est utilisé pour re-estimer les paramètres du HSMM. L'intégration
+des région codante dans le set d'entrainement nécessite que l'exon
+prédit possède au moins un site d'épissage. Les sites d'épissage sont
+ceux prédits indépendamment par les deux méthodes, l'ab initio et
+l'alignement des données RNA-Seq. Les étapes de prédiction des régions
+condantes et de la ré-estimation des paramètres du HSMM sont réalisées
+de manière itérative tant que les regions condantes prédites varies.
+
+Deuxièmement, AUGUSTUS utilise les gènes prédits par GeneMarker-ET pour
+l'entraînement, puis intègre les informations de mapping des données
+RNA-seq dans les prédictions de gènes finaux.
+
+Pour enrichir les données utilisées par Braker le fichier d'alignement
+bam est remplacé par un fichier hints intronique. Ce fichier correspond
+au position de tous les introns récupérés à partir de fichiers
+d'alignements. Le fichier hints utilisés est issue de l'alignement des
+32 RNA-seq et du fichier de protéine de références issue de l'annotation
+de 70-15.
+
+Pour l'annotation automatique des assemblages, le pipeline
+BRAKER\_pipeline à été réalisé en snakemake. La figure X présente un
+exemple du pipeline d'annotation pour la souche XXX. Les alignements des
+données RNA-seq et l'alignement des protéines de référence vont être
+traité en parrallèle par le pipeline. Pour l'alignement des 32 données
+de RNA-seq Braker\_pipeline va être utilisé l'outil topHat2. Puis les
+fichiers bam obtenue seront mergé à l'aide de l'outils samtools merge.
+En suite le fichier contenant tous les alignements va être trié à l'aide
+de l'outils picard SortSam. Enfin l'alignement au format bam va être
+converti en fichier hints à l'aide de l'outil bam2hints fournis avec
+l'outil Braker. Pour l'alignement des protéines de référence, l'outil
+exonerate va être utilisé. Une fois l'alignement réalisé l'outil
+exonerate2hints est utilisé pour convertir le fichier d'alignements en
+fichier hints.
+
+
+\end{document}
