@@ -114,7 +114,7 @@ for (i in 1:(nrow(dataQ)))
 select.kmère <- c()
 N50max <- 25000 # Selection des assemblage avec un N50 supérieur à 25 000
 
-plot(x = x.kmère, y = dataQ$N50, ylab ='N50',xlab = 'souche',xaxt="n" ,ylim=c(100,250000) ,main ='Graphique n°1 : Assemblage de chaque souche en fonction du N50', cex = 0.3)
+plot(x = x.kmère, y = dataQ$N50, ylab ='N50',xlab = 'souche',xaxt="n" ,ylim=c(100,250000) ,main ='Visualisation du N50 de tous les assemblages issue de la litterature', cex = 0.3)
 
 axis(side = 1,at = 1:length(dataQ$name), labels = dataQ$name, las =2, cex.axis = 0.6)
 abline(h=N50max,col="red")

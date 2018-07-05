@@ -36,6 +36,8 @@ output:
 
 7. <p style="text-align:justify" id="annotation3";>Monat C, Tranchant-Dubreuil C, Kougbeadjo A, Farcy C, Ortega-Abboud E, Amanzougarene S, Ravel S, Agbessi M, Orjuela-Bouniol J, Summo M, Sabot F. 2015. TOGGLE: toolbox for generic NGS analyses. BMC Bioinformatics 16\:374. doi\:10.1186/s12859-015-0795-6.<br> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4640241/" target="_blank">[PMC free article]</a> &nbsp; <a href="https://www.ncbi.nlm.nih.gov/pubmed/26552596" target="_blank">[PubMed]</a></br> </p>
 
+7bis. GeneMarker-ET https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4150757/
+
 ------------------
 
 ##Prediction Secretome et Effecteur
