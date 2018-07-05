@@ -15,6 +15,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ##1.Matériels
 
+> - 201 génome (81 litterature et 120 projet)
+> - Définir les 32 RNAseq
+> - Définir protéine de référence de 70-15 (expliquer 70-15)
+
 ##2.Methodes
 
 ###2.1 Assemblage 
@@ -33,9 +37,21 @@ Une fois les éléments masqués masqué, les scaffolds ne comportant que des é
 
 ###2.3 Annotation automatique
 
-M.oyzae étant un eukaryote, l'outil Braker à été utilisée pour l'annotation automatique. Cet outil  combine les avantages des outils GeneMark-ET et AUGUSTUS. 
+M.oyzae étant un eukaryote, l'outil Braker à été utilisée pour l'annotation automatique. Cet outil nescessite un fichier d'assemblage au format fasta et un fichier d'alignement de donnée RNA-seq sur l'assemblage au format bam. Braker utilise un pipeline d'annotation qui utilise les outils GeneMark-ET et AUGUSTUS. 
 
 Tout d'abord, GeneMark-ET génère des structures géniques. Pour cela l'outil utilse un ensemble de paramètre du hidden semi-Markov model (HSMM) définit initiallement pour prédire des régions codante dans l'assemblage. Une fois ces gènes prédites, un sous ensemble d'exon et intron est utilisé pour re-estimer les paramètres du HSMM. L'intégration des région codante dans le set d'entrainement nécessite que l'exon prédit possède au moins un site d'épissage. Les sites d'épissage sont ceux prédits indépendamment par les deux méthodes, l'ab initio et l'alignement des données RNA-Seq. Les étapes de prédiction des régions condantes et de la ré-estimation des paramètres du HSMM sont réalisées de manière itérative tant que les regions condantes prédites varies. 
 
 Deuxièmement, AUGUSTUS utilise les gènes prédits par GeneMarker-ET pour l'entraînement, puis intègre les informations de mapping des données RNA-seq dans les prédictions de gènes finaux.
+
+Pour enrichir les données utilisées par Braker le fichier d'alignement bam est remplacé par un fichier hints intronique. Ce fichier correspond au position de tous les introns récupérés à partir de fichiers d'alignements. Le fichier hints utilisés est issue de l'alignement des 32 RNA-seq et du fichier de protéine de références issue de l'annotation de 70-15.
+
+Pour l'annotation automatique des assemblages, le pipeline BRAKER_pipeline à été réalisé en snakemake. La figure X présente un exemple du pipeline d'annotation pour la souche XXX. Les alignements des données RNA-seq et l'alignement des protéines de référence vont être traité en parrallèle par le pipeline. 
+Pour l'alignement des 32 données de RNA-seq Braker_pipeline va être utilisé l'outil topHat2. Puis les fichiers bam obtenue seront mergé à l'aide de l'outils samtools merge. En suite le fichier contenant tous les alignements va être trié à l'aide de l'outils picard SortSam. Enfin l'alignement au format bam va être converti en fichier hints à l'aide de l'outil bam2hints fournis avec l'outil Braker.
+Pour l'alignement des protéines de référence, l'outil exonerate va être utilisé. Une fois l'alignement réalisé l'outil exonerate2hints est utilisé pour convertir le fichier d'alignements en fichier hints. 
+
+
+
+
+
+
 
