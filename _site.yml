@@ -12,6 +12,8 @@ navbar:
       href: rapport30.html
     - text: Assemblages des souches d'Adel
       href: assembleSoucheAdel.html
+    - text: Assemblages des séquencées à Toulouse (MagMAX)
+      href: assembleMagMAXSPE.html
     - text: Visualisation de la qualité de tout les assemblages
       href: allAssemblage.html
     - text: Visulaisation de la qualité des assemblages issue de la littérature

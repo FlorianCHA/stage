@@ -25,9 +25,9 @@
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<script src="site_libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="site_libs/datatables-binding-0.4/datatables.js"></script>
+<script src="site_libs/datatables-binding-0.5/datatables.js"></script>
 <link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="site_libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
@@ -42,7 +42,9 @@
 <script src="site_libs/dt-ext-buttons-1.10.16/js/buttons.print.min.js"></script>
 <link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link href="site_libs/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
 
@@ -96,6 +98,9 @@ img {
 }
 .tabbed-pane {
   padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
 }
 button.code-folding-btn:focus {
   outline: none;
@@ -310,6 +315,9 @@ div.tocify {
       <a href="assembleSoucheAdel.html">Assemblages des souches d'Adel</a>
     </li>
     <li>
+      <a href="assembleMagMAXSPE.html">Assemblages des séquencées à Toulouse (MagMAX)</a>
+    </li>
+    <li>
       <a href="allAssemblage.html">Visualisation de la qualité de tout les assemblages</a>
     </li>
     <li>
@@ -406,66 +414,56 @@ div.tocify {
 Dans un premier temps, Le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">formatFastaName</a> est utilsé. Il va , pour chaque assemblage, changer les noms des scaffolds. Les scaffolds seront numérotés en fonction de leur longueur, ainsi le plus grand scaffold sera nommé scaffold_1. En description de chaque scaffold sa longueur sera donnée. En revanche seul la souche WHTQ va voir ses scaffold renommé, en revanche les autres souches de la litterature conseront leur nom de scaffold.
 </p>
 <p style="text-align:justify" ;>
-L’annotation est réalisée avec l’outil BRAKER <a href='biblio.html#annotation2'>[6]</a>. Cet outil prend en input un fichier au format fasta contenant le génome à annoter et un fichier hints.Gff. Tous le pipeline d’annotation excépté le pré-traitement des données RNAseq inPlanta est lancée avec le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">BRAKER_pipeline</a>.Ce script va réaliser toutes les étapes necessaires à la création des fichiers d’annotation.
-</p>
-<div id="creation-du-fichier-hints" class="section level1">
-<h1>Création du fichier hints</h1>
-<p style="text-align:justify" ;>
-Le fichier hints.gff va être obtenu par alignement de données RNAseq avec le génome mais aussi par alignement d’un fichier d’annotation protéique du génome 70-15. Pour cela une première étape est de réaliser un alignement des fichiers RNAseq sélectionnés avec chaque génome assemblé puis de créer le fichier hints à l’aide de l’outil bam2hints. La deuxième étape sera l’utilisation de l’outil exonerate pour aligner le fichier protéine sur le génome et récupéré les introns hints. La dernière étape sera de merger les deux fichiers hints pour en former qu’un seul.
+Les outils d’annotation automatique utilisent souvent un modèle d’apprentissage tel que les profils HMM. L’outil Braker utilise également des données RNA-seq pour améliorer la sensibilité et la spécificité dans la détection des gènes. C’est pourquoi cet outil a été utilisé pour l’annotation structurale automatique de M. oryzae. Braker combine les avantages des outils GeneMark-ET et Augustus.
 </p>
 <p style="text-align:justify" ;>
-Les deux fichiers hints (issu de données RNAseq ou du fichier d’annotation protéine) sont d’abord généré séparément. Ils seront ensuite mergés ensemble.
+Tout d’abord, GeneMark-ET génère des structures géniques. Pour cela l’outil utilise un ensemble de paramètres du hidden semi-Markov model (HSMM) définit initialement pour prédire des régions codantes dans l’assemblage. Une fois ces gènes prédits, un sous-ensemble d’exons et d’introns est utilisé pour réestimer les paramètres du HSMM. L’intégration des régions codantes dans le set d’entrainement nécessite que l’exon prédît possède au moins un site d’épissage. Les sites d’épissage sont ceux prédits indépendamment par les deux méthodes, le profil HSMM et l’alignement des données RNA-Seq. Les étapes de prédiction des régions codantes et de la réestimation des paramètres du HSMM sont réalisées de manière itérative tant que les régions codantes prédites varient. Ensuite, Augustus utilise les gènes prédits par GeneMarker-ET pour l’entraînement, puis intègre les informations de mapping des données RNA-seq dans les prédictions finales de gènes.
 </p>
-<div id="hints-rnaseq" class="section level3">
-<h3>Hints RNAseq</h3>
 <p style="text-align:justify" ;>
-Dans cette première étape, 32 fichiers de RNAseq ont été utilisés. Le tableau ci dessous présent tous les données RNAseq utilisées.
+Pour l’annotation, Braker nécessite un fichier d’assemblage au format fasta et un fichier d’alignement de donnée RNA-seq sur l’assemblage au format bam. Cependant pour enrichir les données utilisées par Braker le fichier d’alignement des données RNA-seq est remplacé par un fichier « hints » introniques. Ce fichier correspond aux positions de tous les introns récupérés à partir de différents fichiers d’alignements dont ceux des données RNA-seq. Nous avons utilisé les alignements des données de 32 expériences de RNA-seq et des données protéiques issues de l’annotation de la souche de référence 70-15 pour la création du fichier hints.
 </p>
-<div id="htmlwidget-67b5634664b0f0d1c255" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-67b5634664b0f0d1c255">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°1: Liste des données RNAseq utilisées pour l'annotation<\/caption>","data":[["FR13-myc","FR13.sari.3dpi.RNAtot","Mg1","Mg2","Mg3","SRR651980","SRR651981","SRR651982","SRR1561422","SRR298683","SRR298684","SRR298685","SRR298686","SRR298687","SRR298688","SRR298689","SRR298690","SRR298691","SRR298692","SRR651979","HH27","HH28","HH29","HH35","HH36","HH37","S37","S39","S40","S117","S119","S120"],["Projet GEMO Run1","Projet GEMO Run1 (inPlanta)","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p style="text-align:justify" ;>
+L’annotation automatique des assemblages avec Braker nécessite donc au préalable de réaliser les alignements des données RNA-seq et des données protéiques de la souche de référence 70-15. L’ensemble des étapes d’annotation a été réalisé en utilisant le script Annotation_pipeline.snake. Ce script a été écrit en Snakemake afin de pouvoir paralléliser certaines étapes et de pouvoir lancer les différentes étapes sur le cluster. Tous les scripts utilisés pour l’annotation sont spécialement créés pour ce pipeline. La figure 4 présente un exemple du pipeline d’annotation créé par l’option dag de snakemake. Dans un premier temps, le pipeline traite en parallèle les alignements des données RNA-seq et l’alignement des protéines de la séquence de référence 70-15.
+</p>
+<div id="alignement-rna-seq" class="section level1">
+<h1>Alignement RNA-seq</h1>
+<p style="text-align:justify" ;>
+L’outils topHat2 a été utilisé pour effectuer les alignements des 32 jeux de données de RNA-seq sur chaque assemblage (cf tableau ci-dessous). Les paramètres de topHat2 ont été modifiés pour rechercher des introns de taille comprise entre 10 et 8000 pb. De plus, les données RNA-seq étant des données Illumina, la librairie fr-unstranded a été utilisée pour l’alignement. L’outil topHat2 donne en sortie un fichier d’alignement au format bam. Au total, pour chaque assemblage, 32 fichiers bam ont été générés et utilisés dans la suite du pipeline.
+</p>
 <p> </p>
-<div id="rnaseq-inplanta" class="section level4">
-<h4>RNAseq InPlanta</h4>
+<div id="htmlwidget-21380f4b7f0566bec44f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-21380f4b7f0566bec44f">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption> Tableau n°1: Liste des données RNAseq utilisées pour l'annotation<\/caption>","data":[["FR13-myc","FR13.sari.3dpi.RNAtot","Mg1","Mg2","Mg3","SRR651980","SRR651981","SRR651982","SRR1561422","SRR298683","SRR298684","SRR298685","SRR298686","SRR298687","SRR298688","SRR298689","SRR298690","SRR298691","SRR298692","SRR651979","HH27","HH28","HH29","HH35","HH36","HH37","S37","S39","S40","S117","S119","S120"],["Projet GEMO Run1","Projet GEMO Run1 (inPlanta)","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq Magnaburkho","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq GY11","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta","RNAseq InPlanta"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Id<\/th>\n      <th>description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","csv","excel","pdf","print"],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p> </p>
+</div>
+<div id="traitement-des-donnees-rna-seq" class="section level1">
+<h1>Traitement des données RNA-seq</h1>
 <p style="text-align:justify" ;>
-Parmi ces 32 fichiers RNAseq, 13 proviennent de condition In Planta. Ce qui signifie que ces 13 fichiers contiennent les ARNs de M.oryzae mais aussi de l’hôte, ici le riz. Ces fichiers de RNAseq In planta doivent donc dans un premier temps être traités pour éliminer les ARNs de la plante en question. C’est pourquoi pour sélectionner seulement les séquences de M.oryzae, les 13 fichiers sont alignés avec le génome du riz. Seules les séquences qui ne se sont pas alignés avec le génome du riz sont récupérées. Pour cela le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">forRNAseq_inPlanta</a> a été réalisé.
-</p>
-<p style="text-align:justify" ;>
-Pour l’alignement l’outil TOGGLE <a href='biblio.html#annotation3'>[7]</a> est utilisé. Cette outils permet,ici, de lancer l’outils tophat sur tous les fichiers RNAseq disponible.L’outils donne en sortie un fichier unmapped.bam contenant les séquences qui ne se sont pas alignés avec le génome du riz. Ces fichiers bam sont récupérés puis convertis en fichier fastq grâce à l’outil samtool bam2fq.
+Les fichier bam générés sont ensuite fusionnés à l’aide de l’outil samtools merge. L’outil picard est alors utilisé pour trier les données en fonction de leur coordonnée. Une fois les données triées, le fichier fusionné est converti en fichier hints à l’aide de l’outil bam2hints fourni avec Braker. Enfin un script R est utilisé pour filtrer les introns ayant une faible couverture de séquençage.
 </p>
 </div>
-<div id="mapping-des-donnees-rnaseq" class="section level4">
-<h4>Mapping des données RNAseq</h4>
+<div id="alignement-des-proteines-de-reference" class="section level1">
+<h1>Alignement des protéines de référence</h1>
 <p style="text-align:justify" ;>
-Pour l’alignement des 32 RNAseq sur chaque assemblage, l’outils TOGGLE va être utilisé afin de mapper chaque donnée RNAseq avec l’assemblage. Puis les données sont triées avec l’outil picard pour ensuite être tous mergé ensemble avec l’outil Samtools merge. Enfin le fichier contenant tous les alignements entre les données RNAseq et le génome va être transformé à l’aide de l’outil Bam2hints et d’un script R.
+Afin de compléter le fichier hints issu de l’alignement des données RNA-seq, un alignement des données protéiques de 70-15 est réalisé. L’utilisation de données protéiques permet notamment d’augmenter la sensibilité et la spécificité pour les gènes peu exprimés dans certaines conditions. Pour améliorer encore la prédiction des gènes, ce sont tous les protéines du pangénome crée lors de la précédente annotation qui seront utilisé comme protéines de références. Les protéines de la souche de référence 70-15 ont été alignées avec l’outil exonerate, en utilisant le modèle protein2genome spécifiquement développé pour aligner des séquences d’acides aminés sur des séquences nucléotidiques. Avec ce modèle d’alignement, l’assemblage est traduit en acides aminés. Le paramètre ‘percent’ a été fixé à 95 afin de filtrer les hits qui ont moins de 95 % du score maximal pouvant être obtenu pour cette requête. L’outil exonerate2hints d’Augustus a ensuite été utilisé pour convertir le fichier de sortie de exonerate en fichier hints compatible avec Braker.
 </p>
 </div>
-<div id="creation-du-fichier-hints-issu-du-rnaseq" class="section level4">
-<h4>Création du fichier hints issu du RNAseq</h4>
+<div id="braker" class="section level1">
+<h1>Braker</h1>
 <p style="text-align:justify" ;>
-Une fois le fichier hints issu des données RNAseq obtenu, les assemblages sont aligné avec un fichier d’annotation des protéines du genome de référence (70-15). Pour cela l’outil Exonerate est utilisé. Le fichier d’alignement ainsi obtenu sera ensuite transformer en hints à l’aide de l’outil exonerate2hints.
+Le fichier contenant tous les hints a été généré par simple concaténation du fichier hints issu des données RNA-seq et du fichier hints issu de l’alignement protéique. Ensuite, l’outil Annotation_automatique.snake a été utilisé pour filtrer spécifiquement les informations des introns, et générer un fichier de hints introniques qui a été fourni à Braker. L’outil Braker génère un fichier d’annotation gff3 (General Feature Format) contenant la position et la nature de tous les éléments génomiques identifiés dans chaque génome (gène, transcrit, exon, intron …).
 </p>
 </div>
-</div>
-<div id="hints-proteique" class="section level3">
-<h3>Hints protéique</h3>
+<div id="augustus" class="section level1">
+<h1>Augustus</h1>
 <p style="text-align:justify" ;>
-Dans cette deuxième étape, l’outil exonerate est utilisé pour aligner chaque assemblage avec le fichier protéique de référence. Du fichier de sortie de cet outil, un fichier hints est récupéré à l’aide du script perl exonerate2hints.
+Lors d’une des étapes subséquentes de ce projet, la présence des effecteurs AVR connus a été utilisée pour contrôler la qualité de l’annotation réalisée par Braker, ce qui a permis de montrer que les effecteurs dépourvus d’intron semblaient être ignorés par Braker, qui ne prend en compte que les fichiers hints intronique et n’identifie donc pas les gènes sans région intronique. Cependant, les gènes AVR connus et les effecteurs en général ne possèdent souvent pas d’intron, et sont donc absents de l’annotation par Braker. C’est pourquoi en complément de l’annotation Braker, l’outil Augustus seul a été lancé.
 </p>
 <p style="text-align:justify" ;>
-Une fois les deux fichier hints crées, les positions des introns des deux fichiers hints sont récupérés puis mergés ensemble.
+L’outil Augustus a été utilisé avec le fichier contenant l’ensemble des hints, à la place du fichier de hints concernant introns seuls qui a été utilisé avec Braker. Le fichier gff3 généré par Augustus est fusionné avec le fichier gff3 issu de Braker. L’outil Braker étant plus spécifique et sensible (sauf pour l’identification des gènes ne comportant pas d’introns, d’où l’utilisation d’Augustus), les informations issues du fichier gff3 de l’outil Braker sont conservées et les informations des éléments génomiques issues d’Augustus, qui ne sont pas identifiées par Braker, sont ajoutées. Cette fusion de fichiers gff3 est réalisée par le script mergeBraker_augustus.py. Les éléments contenus dans les fichiers obtenus (gènes, transcrits) sont ensuite renommés pour homogénéiser la nomenclature des gènes. Cette homogénéisation est notamment réalisée pour la construction du pangénome mais aussi pour l’intégration de toutes ces données dans un Genome Browser en cours de construction dans l’équipe. Nous avons choisi une nomenclature intuitive dans laquelle les identifiants des gènes sont composés des initiales de l’espèce, du nom de l’isolat et d’un numéro de gène. Les gènes sont numérotés de 10 en 10, ce qui laisse neufs indices de libre entre chaque gène, en prévision de possibles besoins futurs d’insérer de nouveaux modèles de gènes entre deux gènes déjà identifiés. Le script renameGFF.py a été écrit pour effectuer cette modification du fichier gff3.
 </p>
-</div>
-</div>
-<div id="lancement-braker" class="section level1">
-<h1>Lancement Braker</h1>
 <p style="text-align:justify" ;>
-Ensuite l’outil BRAKER est lancé avec comme espèce Magnaporthe oryzae. Il prend en entrée, le fichier d’assemblage ainsi que le fichier hints_intron.gff crée précédement. Une fois le job fini, le script <a href="https://floriancha.github.io/Script/index.html" target="_blank">recupSeqFromGFF</a> recupSeqFromGFF.py est utilisé pour récupérer à partir du fichier GFF tous les transcripts dans un fichier fasta. Pour l’analyse du secretome un autre fichier fasta sera aussi généré contenant toutes les protéines issues des transcripts. Le fichier d’annotation gff3 est aussi récupéré. Les identifiants des gènes ont été modifiés afin d’homogénéiser la nomenclature avec la souche de référence. Les nouveaux identifiants seront de la forme suivante :
+A partir des fichiers d’annotation finale, les séquences protéiques et nucléiques utilisées dans la suite du projet ont été extraites à l’aide du script gff2fasta.pl, qui utilise les informations du fichier d’annotation pour récupérer les identifiants et les séquences des transcrits dans le fichier d’assemblage. Ce script permet aussi de rajouter la longueur du transcrit et sa position dans l’assemblage dans la description de chaque séquence.
 </p>
-<ul>
-<li>Gene : [Nom de l’espèce(Mo ou Mg)]_[Nom de la souche]<em>v1</em>[Numero du gène]</li>
-<li>Transcript : [Nom de l’espèce(Mo ou Mg)]_[Nom de la souche]<em>v1</em>[Numero du gène]T[Numero du transcript]</li>
-<li>Protéine : [Nom de l’espèce(Mo ou Mg)]_[Nom de la souche]<em>v1</em>[Numero du gène]P[Numero du transcript d’où provient la protéine]</li>
-</ul>
 </div>
 
 

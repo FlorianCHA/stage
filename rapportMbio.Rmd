@@ -50,7 +50,7 @@ library('DT')
 
 ```{r Importation des données}
 dataQuality <-c()
-WD <- '/home/charriat/Documents/stage/StatQuality'
+WD <- 'StatQuality'
 file.quality <- file.path(WD,'QualityMbio.txt')
 dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
 idS <- c()

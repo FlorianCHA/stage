@@ -60,7 +60,7 @@ library('DT')
 ```
 
 ```{r datatable, echo=FALSE}
-data <- read.table('Informations_Complémentaires.csv',header = T,sep = ',')
+data <- read.table('data/Informations_Complémentaires.csv',header = T,sep = ',')
 rownames(data) <- data$Id
 data <- data[,2:length(data)]
 datatable(data,escape = FALSE, extensions = 'Buttons', options = list(dom = 'Blfrtip',buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))

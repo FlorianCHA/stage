@@ -1,7 +1,7 @@
 ---
-title: "Qualité des Assemblages des 30 dernières souches du projet MagMax"
+title: "Qualité des Assemblages des souches séquencées à Toulouse (MagMAX)"
 author: "CHARRIAT Florian"
-date: "12 juin 2018"
+date: "19 mars 2018"
 output:
   html_document:
     code_folding: hide
@@ -53,7 +53,7 @@ library('DT')
 ```{r Importation des données}
 dataQuality <-c()
 WD <- 'StatQuality'
-file.quality <- file.path(WD,'Quality_Toulouse')
+file.quality <- file.path(WD,'QualityR_MagMAXSPE')
 dataQ <- read.table(file=file.quality, sep="\t", header=TRUE)
 idS <- c()
 idSouche <- c()
